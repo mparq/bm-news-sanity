@@ -47,6 +47,9 @@ npm install && npm run dev
 # PWD: ./bm-news-frontend
 npm install && npm run dev
 # > listening on http://localhost:3000
+
+# deploy: to the shopify preview environment (prod deployed on ci/cd)
+npm run deploy
 ```
 
 ### Notes
