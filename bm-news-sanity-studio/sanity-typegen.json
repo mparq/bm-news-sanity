@@ -1,0 +1,5 @@
+{
+  "path": "../bm-news-frontend/app/sanity/queries.ts",
+  "schema": "../bm-news-frontend/app/sanity/sanity-schema.json",
+  "generates": "../bm-news-frontend/app/sanity/sanity.types.ts"
+}

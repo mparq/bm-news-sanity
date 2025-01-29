@@ -36,7 +36,7 @@ SANITY_API_VERSION="v2025-01-25"
 ## Quick start
 
 1. Complete steps in Getting started.
-
+2. Run sanity studio and frontend server locally
 ```bash
 # run the local Sanity Studio (alternatively use https://bm-news.sanity.studio/)
 # PWD: ./bm-news-sanity-studio
@@ -48,9 +48,13 @@ npm install && npm run dev
 npm install && npm run dev
 # > listening on http://localhost:3000
 
-# deploy: to the shopify preview environment (prod deployed on ci/cd)
-npm run deploy
+# # deploy: to the shopify preview environment (prod deployed on ci/cd)
+# npm run deploy
 ```
+
+### Integrating queries with the frontend
+
+See notes in [./app/sanity/queries.ts](./app/sanity/queries.ts).
 
 ### Notes
 

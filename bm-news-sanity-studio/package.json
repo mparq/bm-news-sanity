@@ -9,7 +9,8 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy"
+    "deploy-graphql": "sanity graphql deploy",
+    "typegen-frontend": "sanity schema extract --path ../bm-news-frontend/app/sanity/sanity-schema.json && sanity typegen generate"
   },
   "keywords": [
     "sanity"
