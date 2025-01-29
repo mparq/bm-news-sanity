@@ -1,0 +1,380 @@
+<!-- NOT USED. JUST FOR REF. SEE root.tsx and PageLayout component -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhakti Marga News</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="https://use.typekit.net/seb7dfh.css">
+    <script src="https://kit.fontawesome.com/769ed4e7e3.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="header container">
+        <div class="header__top">
+            <a class="header__logo" href="/">
+                <img class="custom-logo" src="/assets/bhakti-marga-news-logo.png" alt="Bhakti Marga News Logo">
+            </a>
+
+            <a class="live-button live-now" href="/">
+                <div class="circle"></div>
+                Live
+            </a>
+
+            <ul class="header__actions">
+                <li><a class="standalone-link" href="/">Newsletter</a></li>
+                <li><a class="standalone-link" href="/">Contact</a></li>
+                <li><a class="standalone-link" href="/">Language</a></li>
+            </ul>
+            <div class="floating-menu" id="menuActions">
+                <div class="floating-menu__button" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="floating-menu__actions">
+                    <li><a class="standalone-link" href="/">Newsletter</a></li>
+                    <li><a class="standalone-link" href="/">Contact</a></li>
+                    <li><a class="standalone-link" href="/">Language</a></li>
+                </ul>
+            </div>
+            <script>
+                function toggleMenu() {
+                    var menuActions = document.getElementById("menuActions");
+                    menuActions.classList.toggle("toggled");
+                }
+            </script>
+        </div>
+        <nav>
+            <ul class="primary-categories categories--mobile" aria-label="Primary categories">
+                <li><a href="/" class="button button--primary active-page">BM Worldwide</a></li>
+                <li><a href="/" class="button button--outline">Paramahamsa Vishwananda</a></li>
+                <li><a href="/" class="button button--outline">Initiatives</a></li>
+                <li><a href="/" class="button button--outline">Volunteering</a></li>
+                <li><a href="/" class="button button--outline">Community</a></li>
+            </ul>
+            <ul class="primary-categories categories--desktop" aria-label="Primary categories">
+                <li><a href="/" class="active-page">BM Worldwide</a></li>
+                <li><a href="/">Paramahamsa Vishwananda</a></li>
+                <li><a href="/">Initiatives</a></li>
+                <li><a href="/">Volunteering</a></li>
+                <li><a href="/">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div id="latest-news" class="container">
+                <a href="/article.html" class="card--featured">
+                    <figure class="news-card card--paramahamsa-vishwananda">
+                        <div>
+                            <img src="/assets/news-01.jpg" alt="News Image">
+                        </div>
+                        <figcaption>
+                            <p class="category">Paramahamsa Vishwananda</p>
+                            <h3>Paramahamsa Vishwananda Visited an Orphan Centre</h3>
+                            <p>In a historic and spiritually enriching moment, Swami Vishwananda met with a famous
+                                Shaivite teacher at...</p>
+                            <small>10 min read</small>
+                        </figcaption>
+                    </figure>
+                </a>
+                <a href="/live.html" class="news-card news-card--horizontal live-card-mobile">
+                    <div class="live-button" href="/">
+                        <div class="circle"></div>
+                        Live
+                    </div>
+                    <div>
+                        <p class="category category--big">Paramahamsa Vishwananda</p>
+                        <h4 class="no-margin">Now in Brazil</h4>
+                    </div>
+                </a>
+                <div class="news-list">
+                    <a href="/article.html">
+                        <figure class="news-card news-card--horizontal">
+                            <figcaption>
+                                <p class="category">Community</p>
+                                <h5>Meeting of Friends in Italy</h5>
+                                <small>10 min read</small>
+                            </figcaption>
+                            <div class="news-card--horizontal__image-container">
+                                <img class="object-fit-cover" src="/assets/news-02.jpg"
+                                    alt="Meeting of friends in Italy">
+                            </div>
+                        </figure>
+                    </a>
+                    <a href="/article.html">
+                        <figure class="news-card news-card--horizontal">
+                            <figcaption>
+                                <p class="category">Initiatives</p>
+                                <h5>For the first time I shared this story</h5>
+                                <small>10 min read</small>
+                            </figcaption>
+                            <div class="news-card--horizontal__image-container">
+                                <img class="object-fit-cover" src="/assets/news-03.jpg"
+                                    alt="For the first time I shared this story">
+                            </div>
+                        </figure>
+                    </a>
+                    <a href="/article.html">
+                        <figure id="extraCard" class="news-card card--paramahamsa-vishwananda">
+                            <div class="news-card__image-container">
+                                <img class="object-fit-cover" src="/assets/news-01.jpg" alt="News Image">
+                            </div>
+                            <figcaption>
+                                <p class="category">Paramahamsa Vishwananda</p>
+                                <h5>Visited an Orphan Centre</h5>
+                                <small>10 min read</small>
+                            </figcaption>
+                        </figure>
+                    </a>
+                </div>
+                <div class="news-list">
+                    <a href="/article.html">
+                        <figure class="news-card news-card--horizontal">
+                            <figcaption>
+                                <p class="category">Volunteering</p>
+                                <h5>Meeting of Friends in Italy</h5>
+                                <p>In a historic and spiritually enriching moment, Swami Vishwananda...</p>
+                                <small>10 min read</small>
+                            </figcaption>
+                            <div class="news-card--horizontal__image-container">
+                                <img class="object-fit-cover" src="/assets/news-02.jpg"
+                                    alt="Meeting of friends in Italy">
+                            </div>
+                        </figure>
+                    </a>
+                    <a href="/article.html">
+                        <figure class="news-card news-card--horizontal">
+                            <figcaption>
+                                <p class="category">Initiatives</p>
+                                <h5>For the first time I shared this story</h5>
+                                <p>The serene surroundings of the ashram provided the perfect setting...</p>
+                                <small>10 min read</small>
+                            </figcaption>
+                            <div class="news-card--horizontal__image-container">
+                                <img class="object-fit-cover" src="/assets/news-03.jpg"
+                                    alt="For the first time I shared this story">
+                            </div>
+                        </figure>
+                    </a>
+                    <a href="/live.html" class="news-card news-card--horizontal live-card">
+                        <div class="live-button" href="/">
+                            <div class="circle"></div>
+                            Live
+                        </div>
+                        <div>
+                            <p class="category category--big">Paramahamsa Vishwananda</p>
+                            <h4 class="no-margin">Now in Brazil</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="secondary-news">
+            <div>
+                <div class="container">
+                    <ul class="secondary-categories" aria-label="Secondary categories">
+                        <li><a class="button button--primary">BM Worldwide</a></li>
+                        <li><a class="button button--outline">Paramahamsa Vishwananda</a></li>
+                        <li><a class="button button--outline">Initiatives</a></li>
+                        <li><a class="button button--outline">Volunteering</a></li>
+                        <li><a class="button button--outline">Community</a></li>
+                    </ul>
+                </div>
+                <div class="container">
+                    <div class="news-grid">
+                        <a href="/article.html">
+                            <figure class="news-card">
+                                <div class="news-card__image">
+                                    <img src="/assets/news-02.jpg" alt="Meeting of friends in Italy">
+                                </div>
+                                <figcaption>
+                                    <h4>Meeting of Friends in Italy</h4>
+                                    <small>10 min read</small>
+                                </figcaption>
+                            </figure>
+                        </a>
+                        <a href="/article.html">
+                            <figure class="news-card">
+                                <div class="news-card__image">
+                                    <img src="/assets/news-03.jpg" alt="Meeting of friends in Italy">
+                                </div>
+                                <figcaption>
+                                    <h4>Meeting of Friends in Italy</h4>
+                                    <small>10 min read</small>
+                                </figcaption>
+                            </figure>
+                        </a>
+                        <a href="/article.html">
+                            <figure class="news-card">
+                                <div class="news-card__image">
+                                    <img src="/assets/news-04.jpg" alt="Meeting of friends in Italy">
+                                </div>
+                                <figcaption>
+                                    <h4>Meeting of Friends in Italy</h4>
+                                    <small>10 min read</small>
+                                </figcaption>
+                            </figure>
+                        </a>
+                        <a href="/article.html">
+                            <figure class="news-card">
+                                <div class="news-card__image">
+                                    <img src="/assets/news-02.jpg" alt="Meeting of friends in Italy">
+                                </div>
+                                <figcaption>
+                                    <h4>Meeting of Friends in Italy</h4>
+                                    <small>10 min read</small>
+                                </figcaption>
+                            </figure>
+                        </a>
+                        <a href="/article.html">
+                            <figure class="news-card">
+                                <div class="news-card__image">
+                                    <img src="/assets/news-03.jpg" alt="Meeting of friends in Italy">
+                                </div>
+                                <figcaption>
+                                    <h4>Meeting of Friends in Italy</h4>
+                                    <small>10 min read</small>
+                                </figcaption>
+                            </figure>
+                        </a>
+                        <a href="/article.html">
+                            <figure class="news-card">
+                                <div class="news-card__image">
+                                    <img src="/assets/news-04.jpg" alt="Meeting of friends in Italy">
+                                </div>
+                                <figcaption>
+                                    <h4>Meeting of Friends in Italy</h4>
+                                    <small>10 min read</small>
+                                </figcaption>
+                            </figure>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="secondary-news">
+            <div class="container">
+                <div class="articles-list-text">
+                    <article class="articles-list__item">
+                        <div>
+                            <strong>A Sacrifice for others</strong>
+                            <small>⌛ 5 min read</small>
+                        </div>
+                        <p>The serene surroundings of the ashram provided the perfect setting for...</p>
+                    </article>
+                    <article class="articles-list__item">
+                        <div>
+                            <strong>Unity in Diversity</strong>
+                            <small>⌛ 8 min read</small>
+                        </div>
+                        <p>The serene surroundings of the ashram provided the perfect setting for...</p>
+                    </article>
+
+                    <article class="articles-list__item">
+                        <div>
+                            <strong>Help beyond borders</strong>
+                            <small>⌛ 3 min read</small>
+                        </div>
+                        <p>The serene surroundings of the ashram provided the perfect setting for...</p>
+                    </article>
+
+                    <article class="articles-list__item">
+                        <div>
+                            <strong>What happened in Ayodhya 1 year ago?</strong>
+                            <small>⌛ 3 min read</small>
+                        </div>
+                        <p>The serene surroundings of the ashram provided the perfect setting for...</p>
+                    </article>
+                </div>
+
+                <figure class="news-card">
+                    <img src="/assets/news-04.jpg" alt="News Image">
+                    <figcaption>
+                        <h4>Paramahamsa Vishwananda met the founder of the xyz tradition in Italy</h4>
+                        <p>In a historic and spiritually enriching moment, Swami Vishwananda met with a famous Shaivite
+                            teacher at...</p>
+                        <small>10 min read</small>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+        <section id="secondary-news">
+            <div class="container">
+                <div class="articles-list">
+                    <article>
+                        <div>
+                            <p>A Sacrifice for others</p>
+                            <small>⌛ 5 min read</small>
+                        </div>
+                    </article>
+
+                    <article>
+                        <p>Unity in Diversity</p>
+                        <small>⌛ 8 min read</small>
+                    </article>
+
+                    <article>
+                        <p>Help beyond borders</p>
+                        <small>⌛ 3 min read</small>
+                    </article>
+
+                    <article>
+                        <p>What happened in Ayodhya 1 year ago?</p>
+                        <small>⌛ 3 min read</small>
+                    </article>
+
+                    <article>
+                        <p>What happened in Ayodhya 1 year<br>ago?</p>
+                        <small>⌛ 3 min read</small>
+                    </article>
+                </div>
+
+                <figure class="news-card">
+                    <img src="/assets/news-04.jpg" alt="News Image">
+                    <figcaption>
+                        <h4>Paramahamsa Vishwananda met the founder of the xyz tradition in Italy</h4>
+                        <p>In a historic and spiritually enriching moment, Swami Vishwananda met with a famous Shaivite
+                            teacher at...</p>
+                        <small>10 min read</small>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container grid-auto-fit">
+            <img class="footer-logo" src="/assets/bhakti-marga-vertical-golden-logo.png" alt="bhakti marga logo">
+            <div class="footer-widget">
+                <h5>Bhakti Marga Websites</h5>
+                <ul>
+                    <li><a href="https://paramahamsavishwananda.com">Paramahamsa Vishwananda</a></li>
+                    <li><a href="https://justlovefestival.org/">Just Love Festival</a></li>
+                    <li><a href="https://shreepeethanilaya.org/">The Ashram - Shree Peetha Nilaya</a></li>
+                </ul>
+            </div>
+            <div class="footer-widget">
+                <h5>Contact and Follow</h5>
+                <ul>
+                    <li><a href="#">Help Centre</a></li>
+                    <li><a href="#">Subscribe to Newsletter</a></li>
+                    <li><a href="#">Media Requests</a></li>
+                </ul>
+                <ul id="follow">
+                    <li><a href="#" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="#" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href="#" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a></li>
+                    <li><a href="#" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#" target="_blank" rel="noopener"><i class="fa-brands fa-flickr"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

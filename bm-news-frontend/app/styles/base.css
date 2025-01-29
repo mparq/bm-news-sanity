@@ -1,0 +1,177 @@
+@import url('reset.css');
+@import url('buttons.css');
+@import url('floating-menu.css');
+@import url('footer.css');
+@import url('homepage.css');
+
+:root {
+    --h1: 1.8rem;
+    --h2: 1.6rem;
+    --h3: 1.4rem;
+    --h4: 1.2rem;
+    --h5: 1.125rem;
+    --p: 1rem;
+    --text-small: 0.8rem;
+
+    --primary-blue: #002554;
+    --secondary-blue: #193962;
+    --light-blue: #0084c6;
+    --pastel-blue: #617b9b;
+    --dark-blue: #182752;
+    --primary-gold: #bb9d5a;
+    --dark-gold: #8D734A;
+    --secondary-gold: #dfb758;
+    --violet: #614776;
+    --pastel-pink: #DDD6E9;
+    --pink: #EC008C;
+    --red-1: #d9534f;
+    --red-2: #b23a48;
+    --red: #EE4F61;
+    --orange: #cb7035;
+    --beige: #F8E5BE;
+    --white: #fff;
+    --black: #212121;
+    --dark-grey: #333;
+    --grey: #d5d8dc;
+    --light-grey: #f2f2f2;
+    --link: #617b9b;
+    --link-hover: #8aaadb;
+
+    --font-title: nunito, serif;
+    --font-subtitle: lora, serif;
+    --font-article: source-sans-3, sans-serif;
+
+    --gap-large: 2rem;
+    --gap-medium: 1rem;
+    --gap-small: 0.5rem;
+    --gap-extra-small: 0.25rem;
+
+    /* 
+    --font-title: nunito-sans, sans-serif;
+    --font-primary: Helvetica Neue, Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    --font-secondary: Helvetica Neue, Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    --font-article: Georgia, Cambria, "Bitstream Charter", "Charis SIL", Utopia, "URW Bookman L", "Times New Roman", Times, serif;
+    */
+
+    /*
+    --size-h1: 3rem;
+    --size-h2: 2.25rem;
+    --size-h3: 1.875rem;
+    --size-h4: 1.5rem;
+    --size-h5: 1.25rem;
+    --size-h6: 1.125rem;
+    --size-body1: 1rem; 
+    --size-caption: 0.75rem;
+    --size-body: 0.9375rem;
+    --size-btn: 0.875rem;
+    --size-sub1: 0.875rem;
+    --size-sub2: 0.75rem;
+    --size-overline: 0.625rem;
+    --black-high: rgba(0, 0, 0, 0.87);
+    --black-medium: rgba(0, 0, 0, 0.6);
+    --black-inactive: rgba(0, 0, 0, 0.54);
+    --black-disabled: rgba(0, 0, 0, 0.38);
+    --black: #000;
+    --primary-color: rgb(0, 0, 0);
+    --secondary-color: rgb(0, 0, 0);
+    --primary-text: rgb(0, 0, 0);
+    --grey-dark: #58595b;
+    --grey-light: #dbdbdb;
+    --white-light: rgba(255, 255, 255, 0.7);
+    --white: #fff;
+    */
+}
+
+
+/* TYPOGRAPHY */
+
+h1 { font-size: var(--h1); }  
+h2 { font-size: var(--h2); }
+h3 { font-size: var(--h3); }
+h4 { font-size: var(--h4); }
+h5 { font-size: var(--h5); }
+p, strong, button, span, li { font-size: var(--p); }
+small { font-size: var(--text-small); }
+
+body {
+    font-family: var(--font-article);
+    color: var(--dark-blue);
+}
+
+h1 {
+    font-family: var(--font-title);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: var(--gap-medium);
+}
+
+h2, h3, h4, h5 {
+    font-family: var(--font-subtitle);
+    font-weight: 600;
+    margin-bottom: var(--gap-medium);
+}
+
+p, strong {
+    margin-bottom: 1rem;
+}
+
+.dotted-list li {
+    list-style: dotted;
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+}
+.numbered-list li {
+    list-style: numbered;
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+section {
+    position: relative;
+    padding: var(--gap-medium) 0;
+}
+
+.container {
+    position: relative;
+    margin: 0 var(--gap-medium);
+}
+
+.standalone-link {
+    color: var(--secondary-blue);
+    border: none;
+    background: transparent;
+    padding: 0px;
+}
+
+.standalone-link:hover {
+    filter: brightness(2);
+    cursor: pointer;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.object-fit-cover {
+    width: 100%;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    :root {
+        --h1: 2.5rem;
+        --h2: 2rem;
+        --h3: 1.7rem;
+        --h4: 1.4rem;
+        --h5: 1.2rem;
+        --p: 1.125rem
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 85%;
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+}

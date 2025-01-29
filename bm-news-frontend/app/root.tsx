@@ -9,10 +9,10 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   type ShouldRevalidateFunction,
+  LiveReload,
 } from '@remix-run/react';
 import favicon from '~/assets/favicon.svg';
-import resetStyles from '~/styles/reset.css?url';
-import appStyles from '~/styles/app.css?url';
+import baseStyles from '~/styles/base.css?url';
 
 export type RootLoader = typeof loader;
 
@@ -36,8 +36,9 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 
 export function links() {
   return [
-    { rel: 'stylesheet', href: resetStyles },
-    { rel: 'stylesheet', href: appStyles },
+    { rel: 'stylesheet', href: baseStyles },
+    { rel: 'stylesheet', href: 'https://use.typekit.net/seb7dfh.css' },
+    { rel: 'stylesheet', href: 'https://use.typekit.net/seb7dfh.css' },
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -98,6 +99,7 @@ export function Layout({ children }: { children?: React.ReactNode }) {
         {children}
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
+        <script src="https://kit.fontawesome.com/769ed4e7e3.js" crossOrigin="anonymous"></script>
       </body>
     </html>
   );

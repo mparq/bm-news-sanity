@@ -3,6 +3,7 @@ import { useLoaderData } from '@remix-run/react';
 import { PortableText } from '@portabletext/react';
 import { groq } from 'hydrogen-sanity/groq';
 import { SanityDocument } from 'hydrogen-sanity';
+import { PageLayout } from '~/components/PageLayout';
 
 export async function loader({
   params,
@@ -41,16 +42,18 @@ export default function Page() {
   const { article } = useLoaderData<typeof loader>();
 
   return (
-    <div>
-      <h1>{article.data.title}</h1>
-      <div>Example of rendering content:</div>
-      <div>------- CONTENT BLOCK START -----------</div>
-      {/* TODO: need to render other block types properly */}
-      {/* https://hdoro.dev/performant-sanity-io-images */}
-      {article.data.content?.length > 0 ? <PortableText value={article.data.content} /> : null}
-      <div>------- CONTENT BLOCK END -----------</div>
-      <pre>{JSON.stringify(article.data, null, 2)}</pre>
-    </div>
+    <PageLayout>
+      <div>
+        <h1>{article.data.title}</h1>
+        <div>Example of rendering content:</div>
+        <div>------- CONTENT BLOCK START -----------</div>
+        {/* TODO: need to render other block types properly */}
+        {/* https://hdoro.dev/performant-sanity-io-images */}
+        {article.data.content?.length > 0 ? <PortableText value={article.data.content} /> : null}
+        <div>------- CONTENT BLOCK END -----------</div>
+        <pre>{JSON.stringify(article.data, null, 2)}</pre>
+      </div>
+    </PageLayout>
   );
 }
 

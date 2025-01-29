@@ -2,6 +2,7 @@ import { useLoaderData } from '@remix-run/react';
 import { json, LoaderFunctionArgs } from '@shopify/remix-oxygen';
 import { SanityDocument } from 'hydrogen-sanity';
 import { groq } from 'hydrogen-sanity/groq';
+import { PageLayout } from '~/components/PageLayout';
 
 export async function loader({
   _params,
@@ -55,8 +56,8 @@ export default function IndexPage() {
   const layout = frontPageLayout.data;
 
   return (
-    <div>
+    <PageLayout>
       <pre>{JSON.stringify(layout, null, 2)}</pre>
-    </div>
+    </PageLayout>
   );
 }

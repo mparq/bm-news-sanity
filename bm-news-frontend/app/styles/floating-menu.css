@@ -1,0 +1,80 @@
+.floating-menu {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.floating-menu__button {
+    width: 55px;
+    height: 55px;
+    background-color: var(--secondary-gold);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.floating-menu__button span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+}
+
+.floating-menu__actions {
+    padding: var(--gap-small);
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    background-color: white;
+    border: 2px solid var(--dark-blue);
+    border-radius: 5px;
+    overflow: hidden;
+    width: max-content;
+    display: none;
+}
+
+.floating-menu.toggled .floating-menu__actions {
+    display: block
+}
+
+.floating-menu__actions li {
+    padding: var(--gap-small) var(--gap-medium);
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+
+.floating-menu__actions li:last-child {
+    border-bottom: none;
+}
+
+.floating-menu__actions li:hover {
+    background: var(--grey);
+}
+
+.floating-menu.toggled .floating-menu__button span:nth-of-type(1) {
+    position: absolute;
+    margin: 0;
+    transform: rotateZ(45deg);
+    transition: transform 0.2s;
+}
+
+.floating-menu.toggled .floating-menu__button span:nth-of-type(2) {
+    display: none;
+}
+
+.floating-menu.toggled .floating-menu__button span:nth-of-type(3) {
+    margin: 0;
+    transform: rotateZ(-45deg);
+    transition: transform 0.2s;
+}
+
+@media (min-width: 850px) {
+    .floating-menu {
+        display: none;
+    }
+}
