@@ -11,7 +11,47 @@ export default async function handleRequest(
   remixContext: EntryContext,
   context: AppLoadContext,
 ) {
+  // TODO: before production, remove font awesome/typekit CSP and figure out hosting
   const { nonce, header, NonceProvider } = createContentSecurityPolicy({
+    defaultSrc: [
+      "'self'",
+      'https://ka-f.fontawesome.com',
+      'https://cdn.shopify.com',
+    ],
+    styleSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://p.typekit.net',
+      'https://use.typekit.net',
+      'https://ka-f.fontawesome.com',
+    ],
+    scriptSrc: [
+      "'unsafe-eval'",
+      "'self'",
+      'https://kit.fontawesome.com'
+    ],
+    scriptSrcElem: [
+      "'self'",
+      'https://kit.fontawesome.com'
+    ],
+    fontSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://p.typekit.net',
+      'https://use.typekit.net',
+      'https://ka-f.fontawesome.com',
+    ],
+    connectSrc: [
+      "'self'",
+      'https://ka-f.fontawesome.com',
+      'https://monorail-edge.shopifysvc.com',
+      'https://bm-news.myshopify.com',
+      'http://localhost:*',
+      'ws://localhost:*',
+      'ws://127.0.0.1:*',
+      'ws://*.tryhydrogen.dev:*”'
+
+    ],
     shop: {
       checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,

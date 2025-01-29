@@ -4,7 +4,7 @@ import { json, LoaderFunctionArgs } from '@shopify/remix-oxygen';
 import { PageLayout } from '~/components/PageLayout';
 import { readTime } from '~/lib/utils';
 import { frontPageQuery } from '~/sanity/queries';
-import { FrontPageQueryResult } from '~/sanity/sanity.types';
+import { FrontPageQueryResult, Slug } from '~/sanity/sanity.types';
 
 export async function loader({
   _params,
@@ -27,13 +27,13 @@ export default function IndexPage() {
     <PageLayout>
       <section>
         <div id="latest-news" className="container">
-          <TopStory
-            slug={topStory.slug}
-            title={topStory.title}
-            excerpt={topStory?.excerpt}
+          {topStory && <TopStoryCard
+            slug={topStory.slug!}
+            title={topStory.title!}
+            excerpt={topStory.excerpt}
             wordCount={topStory.contentWordCount}
-            category={topStory.category}
-          />
+            category={topStory.category!}
+          />}
           <a href="/live.html" className="news-card news-card--horizontal live-card-mobile">
             <div className="live-button">
               <div className="circle"></div>
@@ -114,7 +114,7 @@ export default function IndexPage() {
               </figure>
             </a>
             <a href="/live.html" className="news-card news-card--horizontal live-card">
-              <div className="live-button" href="/">
+              <div className="live-button">
                 <div className="circle"></div>
                 Live
               </div>
@@ -304,14 +304,14 @@ export default function IndexPage() {
   );
 }
 
-function TopStory(props: {
-  slug: { current: string; };
+function TopStoryCard(props: {
+  slug: Slug | null;
   title: string;
-  category: { name: string; slug: string; };
+  category: { name: string | null; slug: Slug | null };
   excerpt: any;
   wordCount: number;
 }) {
-  const articleLink = `/stories/${props.slug.current}`;
+  const articleLink = `/stories/${props.slug?.current}`;
   const minsToRead = readTime(props.wordCount);
   return (
     <a href={articleLink} className="card--featured">
@@ -320,9 +320,9 @@ function TopStory(props: {
           <img src="/assets/news-01.jpg" alt="News Image" />
         </div>
         <figcaption>
-          <p className="category">{props.category.name}</p>
+          <p className="category">{props.category?.name}</p>
           <h3>{props.title}</h3>
-          <p>{props.excerpt && <PortableText value={props.excerpt} />}</p>
+          {props.excerpt && <PortableText value={props.excerpt} />}
           <small>{minsToRead}</small>
         </figcaption>
       </figure>
