@@ -24,28 +24,46 @@ export const frontPageQuery = groq`
       _updatedAt,
       authors[]->{name, profilePhoto{asset->{url}}},
       title,
-      category,
+      category->{name, slug},
       excerpt,
       slug,
-      featuredImage{asset->{url}}
+      featuredImage{asset->{url}},
+      "contentWordCount": count(
+              string::split(
+                // pt::text extracts plain text for a portable text block
+                pt::text(content),
+                " "
+              )),
     },
     sideStoriesSecondary[]-> {
       _updatedAt,
       authors[]->{name, profilePhoto{asset->{url}}},
       title,
-      category,
+      category->{name, slug},
       excerpt,
       slug,
-      featuredImage{asset->{url}}
+      featuredImage{asset->{url}},
+      "contentWordCount": count(
+              string::split(
+                // pt::text extracts plain text for a portable text block
+                pt::text(content),
+                " "
+              )),
     },
     topStory->{
       _updatedAt,
       authors[]->{name, profilePhoto{asset->{url}}},
       title,
-      category,
+      category->{name, slug},
       excerpt,
       slug,
-      featuredImage{asset->{url}}
+      featuredImage{asset->{url}},
+      "contentWordCount": count(
+          string::split(
+            // pt::text extracts plain text for a portable text block
+            pt::text(content),
+            " "
+          )),
     }
 }[0]
 `
@@ -65,7 +83,13 @@ export const singleNewsStoryQuery = groq`
   category->{name, slug},
   slug,
   authors[]->{name, profilePhoto{asset->{url}, slug}},
-  excerpt
+  excerpt,
+  "contentWordCount": count(
+      string::split(
+        // pt::text extracts plain text for a portable text block
+        pt::text(content),
+        " "
+      )),
 }[0]
 `
 

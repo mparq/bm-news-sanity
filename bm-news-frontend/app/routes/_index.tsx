@@ -1,6 +1,8 @@
+import { PortableText } from '@portabletext/react';
 import { useLoaderData } from '@remix-run/react';
 import { json, LoaderFunctionArgs } from '@shopify/remix-oxygen';
 import { PageLayout } from '~/components/PageLayout';
+import { readTime } from '~/lib/utils';
 import { frontPageQuery } from '~/sanity/queries';
 import { FrontPageQueryResult } from '~/sanity/sanity.types';
 
@@ -16,29 +18,22 @@ export async function loader({
   return json({ frontPageLayout });
 }
 
-
 export default function IndexPage() {
   const { frontPageLayout } = useLoaderData<typeof loader>();
   const layout = frontPageLayout.data;
+  const topStory = layout?.topStory;
 
   return (
     <PageLayout>
       <section>
         <div id="latest-news" className="container">
-          <a href="/article.html" className="card--featured">
-            <figure className="news-card card--paramahamsa-vishwananda">
-              <div>
-                <img src="/assets/news-01.jpg" alt="News Image" />
-              </div>
-              <figcaption>
-                <p className="category">Paramahamsa Vishwananda</p>
-                <h3>Paramahamsa Vishwananda Visited an Orphan Centre</h3>
-                <p>In a historic and spiritually enriching moment, Swami Vishwananda met with a famous
-                  Shaivite teacher at...</p>
-                <small>10 min read</small>
-              </figcaption>
-            </figure>
-          </a>
+          <TopStory
+            slug={topStory.slug}
+            title={topStory.title}
+            excerpt={topStory?.excerpt}
+            wordCount={topStory.contentWordCount}
+            category={topStory.category}
+          />
           <a href="/live.html" className="news-card news-card--horizontal live-card-mobile">
             <div className="live-button">
               <div className="circle"></div>
@@ -305,7 +300,34 @@ export default function IndexPage() {
         </div>
       </section>
 
-      <pre>{JSON.stringify(layout, null, 2)}</pre>
     </PageLayout>
   );
 }
+
+function TopStory(props: {
+  slug: { current: string; };
+  title: string;
+  category: { name: string; slug: string; };
+  excerpt: any;
+  wordCount: number;
+}) {
+  const articleLink = `/stories/${props.slug.current}`;
+  const minsToRead = readTime(props.wordCount);
+  return (
+    <a href={articleLink} className="card--featured">
+      <figure className="news-card card--paramahamsa-vishwananda">
+        <div>
+          <img src="/assets/news-01.jpg" alt="News Image" />
+        </div>
+        <figcaption>
+          <p className="category">{props.category.name}</p>
+          <h3>{props.title}</h3>
+          <p>{props.excerpt && <PortableText value={props.excerpt} />}</p>
+          <small>{minsToRead}</small>
+        </figcaption>
+      </figure>
+    </a>
+  )
+}
+
+

@@ -380,7 +380,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../bm-news-frontend/app/sanity/queries.ts
 // Variable: frontPageQuery
-// Query: //*[_type == "frontPageLayout"]//*[_type == "newsStory"]*[_type == "frontPageLayout" && name == "main"]{    sideStoriesPrimary[]-> {      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      category,      excerpt,      slug,      featuredImage{asset->{url}}    },    sideStoriesSecondary[]-> {      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      category,      excerpt,      slug,      featuredImage{asset->{url}}    },    topStory->{      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      category,      excerpt,      slug,      featuredImage{asset->{url}}    }}[0]
+// Query: //*[_type == "frontPageLayout"]//*[_type == "newsStory"]*[_type == "frontPageLayout" && name == "main"]{    sideStoriesPrimary[]-> {      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      category->{name, slug},      excerpt,      slug,      featuredImage{asset->{url}},      "contentWordCount": count(              string::split(                // pt::text extracts plain text for a portable text block                pt::text(content),                " "              )),    },    sideStoriesSecondary[]-> {      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      category->{name, slug},      excerpt,      slug,      featuredImage{asset->{url}},      "contentWordCount": count(              string::split(                // pt::text extracts plain text for a portable text block                pt::text(content),                " "              )),    },    topStory->{      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      category->{name, slug},      excerpt,      slug,      featuredImage{asset->{url}},      "contentWordCount": count(          string::split(            // pt::text extracts plain text for a portable text block            pt::text(content),            " "          )),    }}[0]
 export type FrontPageQueryResult = {
   sideStoriesPrimary: Array<{
     _updatedAt: string;
@@ -394,10 +394,8 @@ export type FrontPageQueryResult = {
     }> | null;
     title: string | null;
     category: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'category';
+      name: string | null;
+      slug: Slug | null;
     } | null;
     excerpt: Array<{
       children?: Array<{
@@ -423,6 +421,7 @@ export type FrontPageQueryResult = {
         url: string | null;
       } | null;
     } | null;
+    contentWordCount: number;
   }> | null;
   sideStoriesSecondary: Array<{
     _updatedAt: string;
@@ -436,10 +435,8 @@ export type FrontPageQueryResult = {
     }> | null;
     title: string | null;
     category: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'category';
+      name: string | null;
+      slug: Slug | null;
     } | null;
     excerpt: Array<{
       children?: Array<{
@@ -465,6 +462,7 @@ export type FrontPageQueryResult = {
         url: string | null;
       } | null;
     } | null;
+    contentWordCount: number;
   }> | null;
   topStory: {
     _updatedAt: string;
@@ -478,10 +476,8 @@ export type FrontPageQueryResult = {
     }> | null;
     title: string | null;
     category: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'category';
+      name: string | null;
+      slug: Slug | null;
     } | null;
     excerpt: Array<{
       children?: Array<{
@@ -507,10 +503,11 @@ export type FrontPageQueryResult = {
         url: string | null;
       } | null;
     } | null;
+    contentWordCount: number;
   } | null;
 } | null;
 // Variable: singleNewsStoryQuery
-// Query: *[_type == "newsStory" && slug.current == $slug]{  _updatedAt,  content[]{    ...,    _type == "image" => {      ...,      asset->    }  },  featuredImage{asset->{url}},  title,  category->{name, slug},  slug,  authors[]->{name, profilePhoto{asset->{url}, slug}},  excerpt}[0]
+// Query: *[_type == "newsStory" && slug.current == $slug]{  _updatedAt,  content[]{    ...,    _type == "image" => {      ...,      asset->    }  },  featuredImage{asset->{url}},  title,  category->{name, slug},  slug,  authors[]->{name, profilePhoto{asset->{url}, slug}},  excerpt,  "contentWordCount": count(      string::split(        // pt::text extracts plain text for a portable text block        pt::text(content),        " "      )),}[0]
 export type SingleNewsStoryQueryResult = {
   _updatedAt: string;
   content: Array<
@@ -607,13 +604,14 @@ export type SingleNewsStoryQueryResult = {
     _type: 'block';
     _key: string;
   }> | null;
+  contentWordCount: number;
 } | null;
 
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    '\n//*[_type == "frontPageLayout"]\n//*[_type == "newsStory"]\n*[_type == "frontPageLayout" && name == "main"]\n{\n    sideStoriesPrimary[]-> {\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      category,\n      excerpt,\n      slug,\n      featuredImage{asset->{url}}\n    },\n    sideStoriesSecondary[]-> {\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      category,\n      excerpt,\n      slug,\n      featuredImage{asset->{url}}\n    },\n    topStory->{\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      category,\n      excerpt,\n      slug,\n      featuredImage{asset->{url}}\n    }\n}[0]\n': FrontPageQueryResult;
-    '\n*[_type == "newsStory" && slug.current == $slug]{\n  _updatedAt,\n  content[]{\n    ...,\n    _type == "image" => {\n      ...,\n      asset->\n    }\n  },\n  featuredImage{asset->{url}},\n  title,\n  category->{name, slug},\n  slug,\n  authors[]->{name, profilePhoto{asset->{url}, slug}},\n  excerpt\n}[0]\n': SingleNewsStoryQueryResult;
+    '\n//*[_type == "frontPageLayout"]\n//*[_type == "newsStory"]\n*[_type == "frontPageLayout" && name == "main"]\n{\n    sideStoriesPrimary[]-> {\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      category->{name, slug},\n      excerpt,\n      slug,\n      featuredImage{asset->{url}},\n      "contentWordCount": count(\n              string::split(\n                // pt::text extracts plain text for a portable text block\n                pt::text(content),\n                " "\n              )),\n    },\n    sideStoriesSecondary[]-> {\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      category->{name, slug},\n      excerpt,\n      slug,\n      featuredImage{asset->{url}},\n      "contentWordCount": count(\n              string::split(\n                // pt::text extracts plain text for a portable text block\n                pt::text(content),\n                " "\n              )),\n    },\n    topStory->{\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      category->{name, slug},\n      excerpt,\n      slug,\n      featuredImage{asset->{url}},\n      "contentWordCount": count(\n          string::split(\n            // pt::text extracts plain text for a portable text block\n            pt::text(content),\n            " "\n          )),\n    }\n}[0]\n': FrontPageQueryResult;
+    '\n*[_type == "newsStory" && slug.current == $slug]{\n  _updatedAt,\n  content[]{\n    ...,\n    _type == "image" => {\n      ...,\n      asset->\n    }\n  },\n  featuredImage{asset->{url}},\n  title,\n  category->{name, slug},\n  slug,\n  authors[]->{name, profilePhoto{asset->{url}, slug}},\n  excerpt,\n  "contentWordCount": count(\n      string::split(\n        // pt::text extracts plain text for a portable text block\n        pt::text(content),\n        " "\n      )),\n}[0]\n': SingleNewsStoryQueryResult;
   }
 }
