@@ -4,7 +4,7 @@ import { json, LoaderFunctionArgs } from '@shopify/remix-oxygen';
 import { PageLayout } from '~/components/PageLayout';
 import { readTime } from '~/lib/utils';
 import { frontPageQuery } from '~/sanity/queries';
-import { FrontPageQueryResult, Slug } from '~/sanity/sanity.types';
+import { FrontPageQueryResult } from '~/sanity/sanity.types';
 
 export async function loader({
   _params,
@@ -28,11 +28,11 @@ export default function IndexPage() {
       <section>
         <div id="latest-news" className="container">
           {topStory && <TopStoryCard
-            slug={topStory.slug!}
+            slug={topStory.slugCurrent!}
             title={topStory.title!}
             excerpt={topStory.excerpt}
             wordCount={topStory.contentWordCount}
-            category={topStory.category!}
+            category={topStory.categoryName!}
           />}
           <a href="/live.html" className="news-card news-card--horizontal live-card-mobile">
             <div className="live-button">
@@ -45,74 +45,40 @@ export default function IndexPage() {
             </div>
           </a>
           <div className="news-list">
-            <a href="/article.html">
-              <figure className="news-card news-card--horizontal">
-                <figcaption>
-                  <p className="category">Community</p>
-                  <h5>Meeting of Friends in Italy</h5>
-                  <small>10 min read</small>
-                </figcaption>
-                <div className="news-card--horizontal__image-container">
-                  <img className="object-fit-cover" src="/assets/news-02.jpg"
-                    alt="Meeting of friends in Italy" />
-                </div>
-              </figure>
-            </a>
-            <a href="/article.html">
-              <figure className="news-card news-card--horizontal">
-                <figcaption>
-                  <p className="category">Initiatives</p>
-                  <h5>For the first time I shared this story</h5>
-                  <small>10 min read</small>
-                </figcaption>
-                <div className="news-card--horizontal__image-container">
-                  <img className="object-fit-cover" src="/assets/news-03.jpg"
-                    alt="For the first time I shared this story" />
-                </div>
-              </figure>
-            </a>
-            <a href="/article.html">
-              <figure id="extraCard" className="news-card card--paramahamsa-vishwananda">
-                <div className="news-card__image-container">
-                  <img className="object-fit-cover" src="/assets/news-01.jpg" alt="News Image" />
-                </div>
-                <figcaption>
-                  <p className="category">Paramahamsa Vishwananda</p>
-                  <h5>Visited an Orphan Centre</h5>
-                  <small>10 min read</small>
-                </figcaption>
-              </figure>
-            </a>
+            <StoryCard
+              slug={'unknown'}
+              category={'Community'}
+              title="Meeting of Friends in Italy"
+              wordCount={1500}
+            />
+            <StoryCard
+              slug={'unknown'}
+              category={'Initiatives'}
+              title="For the first time I shared this story"
+              wordCount={1500}
+            />
+            <StoryCardExtra
+              slug={'unknown'}
+              category={'Paramahamsa Vishwananda'}
+              title="Visited an Orphan Centre"
+              wordCount={1500}
+            />
           </div>
           <div className="news-list">
-            <a href="/article.html">
-              <figure className="news-card news-card--horizontal">
-                <figcaption>
-                  <p className="category">Volunteering</p>
-                  <h5>Meeting of Friends in Italy</h5>
-                  <p>In a historic and spiritually enriching moment, Swami Vishwananda...</p>
-                  <small>10 min read</small>
-                </figcaption>
-                <div className="news-card--horizontal__image-container">
-                  <img className="object-fit-cover" src="/assets/news-02.jpg"
-                    alt="Meeting of friends in Italy" />
-                </div>
-              </figure>
-            </a>
-            <a href="/article.html">
-              <figure className="news-card news-card--horizontal">
-                <figcaption>
-                  <p className="category">Initiatives</p>
-                  <h5>For the first time I shared this story</h5>
-                  <p>The serene surroundings of the ashram provided the perfect setting...</p>
-                  <small>10 min read</small>
-                </figcaption>
-                <div className="news-card--horizontal__image-container">
-                  <img className="object-fit-cover" src="/assets/news-03.jpg"
-                    alt="For the first time I shared this story" />
-                </div>
-              </figure>
-            </a>
+            <StoryCardHorizontal
+              slug={'unknown'}
+              category={'Volunteering'}
+              title="Meeting of Friends in Italy"
+              excerpt="In a historic and spiritually enriching moment, Swami Vishwananda..."
+              wordCount={1500}
+            />
+            <StoryCardHorizontal
+              slug={'unknown'}
+              category={'Initiatives'}
+              title="For the first time I shared this story"
+              excerpt="The serene surroundings of the ashram provided the perfect setting..."
+              wordCount={1500}
+            />
             <a href="/live.html" className="news-card news-card--horizontal live-card">
               <div className="live-button">
                 <div className="circle"></div>
@@ -305,13 +271,13 @@ export default function IndexPage() {
 }
 
 function TopStoryCard(props: {
-  slug: Slug | null;
+  slug: string;
   title: string;
-  category: { name: string | null; slug: Slug | null };
+  category: string;
   excerpt: any;
   wordCount: number;
 }) {
-  const articleLink = `/stories/${props.slug?.current}`;
+  const articleLink = `/stories/${props.slug}`;
   const minsToRead = readTime(props.wordCount);
   return (
     <a href={articleLink} className="card--featured">
@@ -320,14 +286,90 @@ function TopStoryCard(props: {
           <img src="/assets/news-01.jpg" alt="News Image" />
         </div>
         <figcaption>
-          <p className="category">{props.category?.name}</p>
+          <p className="category">{props.category}</p>
           <h3>{props.title}</h3>
           {props.excerpt && <PortableText value={props.excerpt} />}
-          <small>{minsToRead}</small>
+          <small>{minsToRead} min read</small>
         </figcaption>
       </figure>
     </a>
   )
 }
 
+function StoryCard(props: {
+  slug: string;
+  category: string;
+  title: string;
+  wordCount: number;
+}) {
+  const articleLink = `/stories/${props.slug}`;
+  const minsToRead = readTime(props.wordCount);
+  return (
+    <a href={articleLink}>
+      <figure className="news-card news-card--horizontal">
+        <figcaption>
+          <p className="category">{props.category}</p>
+          <h5>Meeting of Friends in Italy</h5>
+          <small>{minsToRead} min read</small>
+        </figcaption>
+        <div className="news-card--horizontal__image-container">
+          <img className="object-fit-cover" src="/assets/news-02.jpg"
+            alt="Meeting of friends in Italy" />
+        </div>
+      </figure>
+    </a>
+  )
+}
+
+function StoryCardExtra(props: {
+  slug: string;
+  category: string;
+  title: string;
+  wordCount: number;
+}) {
+  const articleLink = `/stories/${props.slug}`;
+  const minsToRead = readTime(props.wordCount);
+  return (
+    <a href={articleLink}>
+      <figure id="extraCard" className="news-card card--paramahamsa-vishwananda">
+        <div className="news-card__image-container">
+          <img className="object-fit-cover" src="/assets/news-01.jpg" alt="News Image" />
+        </div>
+        <figcaption>
+          <p className="category">{props.category}</p>
+          <h5>{props.title}</h5>
+          <small>{minsToRead} min read</small>
+        </figcaption>
+      </figure>
+    </a>
+  )
+
+}
+
+function StoryCardHorizontal(props: {
+  slug: string;
+  category: string;
+  title: string;
+  wordCount: number;
+  excerpt: string;
+}) {
+  const articleLink = `/stories/${props.slug}`;
+  const minsToRead = readTime(props.wordCount);
+  return (
+    <a href={articleLink}>
+      <figure className="news-card news-card--horizontal">
+        <figcaption>
+          <p className="category">{props.category}</p>
+          <h5>{props.title}</h5>
+          <p>{props.excerpt}</p>
+          <small>{minsToRead} min read</small>
+        </figcaption>
+        <div className="news-card--horizontal__image-container">
+          <img className="object-fit-cover" src="/assets/news-02.jpg"
+            alt="Meeting of friends in Italy" />
+        </div>
+      </figure>
+    </a>
+  )
+}
 

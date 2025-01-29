@@ -24,9 +24,9 @@ export const frontPageQuery = groq`
       _updatedAt,
       authors[]->{name, profilePhoto{asset->{url}}},
       title,
-      category->{name, slug},
+      "categoryName": category->.name,
       excerpt,
-      slug,
+      "slugCurrent": slug.current,
       featuredImage{asset->{url}},
       "contentWordCount": count(
               string::split(
@@ -39,9 +39,9 @@ export const frontPageQuery = groq`
       _updatedAt,
       authors[]->{name, profilePhoto{asset->{url}}},
       title,
-      category->{name, slug},
+      "categoryName": category->.name,
       excerpt,
-      slug,
+      "slugCurrent": slug.current,
       featuredImage{asset->{url}},
       "contentWordCount": count(
               string::split(
@@ -54,9 +54,9 @@ export const frontPageQuery = groq`
       _updatedAt,
       authors[]->{name, profilePhoto{asset->{url}}},
       title,
-      category->{name, slug},
+      "categoryName": category->.name,
       excerpt,
-      slug,
+      "slugCurrent": slug.current,
       featuredImage{asset->{url}},
       "contentWordCount": count(
           string::split(
