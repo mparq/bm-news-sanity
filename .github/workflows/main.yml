@@ -9,11 +9,10 @@ jobs:
 
   build-and-deploy-frontend:
     runs-on: ubuntu-latest
-
+    environment: main
     defaults:
       run:
         working-directory: bm-news-frontend/
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
