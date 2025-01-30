@@ -17,6 +17,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install deps
+        run: npm ci
+
       - name: Build and push to hydrogen
         id: deploy
         run: npx shopify hydrogen deploy
