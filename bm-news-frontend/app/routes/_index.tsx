@@ -1,5 +1,6 @@
 import { PortableText, PortableTextBlock } from '@portabletext/react';
 import { useLoaderData } from '@remix-run/react';
+import { CacheShort } from '@shopify/hydrogen';
 import { LoaderFunctionArgs } from '@shopify/remix-oxygen';
 import { PageLayout } from '~/components/PageLayout';
 import { readTime } from '~/lib/utils';
@@ -8,13 +9,17 @@ import { FrontPageQueryResult } from '~/sanity/sanity.types';
 
 export async function loader({
   _params,
-  context: { sanity },
+  context: { sanity, sanityImageBuilder },
 }: LoaderFunctionArgs) {
   /**
    * NOTE: run query in [Sanity Studio > Vision](http://localhost:3333/vision) then paste here
    * [groq query docs](https://www.sanity.io/docs/how-queries-work)
    */
-  const frontPageLayout = await sanity.loadQuery<FrontPageQueryResult>(frontPageQuery, {});
+  const frontPageLayout = await sanity.loadQuery<FrontPageQueryResult>(frontPageQuery, {}, {
+    hydrogen: {
+      cache: CacheShort()
+    }
+  });
   return { frontPageLayout };
 }
 
@@ -315,12 +320,12 @@ function StoryCard(props: {
       <figure className="news-card news-card--horizontal">
         <figcaption>
           <p className="category">{props.category}</p>
-          <h5>Meeting of Friends in Italy</h5>
+          <h5>{props.title}</h5>
           <small>{minsToRead} min read</small>
         </figcaption>
         <div className="news-card--horizontal__image-container">
           <img className="object-fit-cover" src="/assets/news-02.jpg"
-            alt="Meeting of friends in Italy" />
+            alt={props.title || ""} />
         </div>
       </figure>
     </a>
