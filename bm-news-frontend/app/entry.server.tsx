@@ -32,7 +32,13 @@ export default async function handleRequest(
     ],
     scriptSrcElem: [
       "'self'",
-      'https://kit.fontawesome.com'
+      'https://kit.fontawesome.com',
+      'https://platform.twitter.com'
+    ],
+    frameSrc: [
+      "'self'",
+      'https://*.youtube.com',
+      'https://platform.twitter.com'
     ],
     fontSrc: [
       "'self'",

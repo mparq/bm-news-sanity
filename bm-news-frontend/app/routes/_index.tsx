@@ -37,7 +37,7 @@ export default function IndexPage() {
             wordCount={topStory.contentWordCount}
             category={topStory.categoryName!}
           />}
-          <a href="/live.html" className="news-card news-card--horizontal live-card-mobile">
+          <a href="/live/now-in-brazil" className="news-card news-card--horizontal live-card-mobile">
             <div className="live-button">
               <div className="circle"></div>
               Live
@@ -85,7 +85,7 @@ export default function IndexPage() {
                 />
               ))
             }
-            <a href="/live.html" className="news-card news-card--horizontal live-card">
+            <a href="/live/now-in-brazil" className="news-card news-card--horizontal live-card">
               <div className="live-button">
                 <div className="circle"></div>
                 Live
