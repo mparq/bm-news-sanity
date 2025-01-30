@@ -16,4 +16,4 @@ jobs:
       id: deploy
       run: npx shopify hydrogen deploy
       env:
-        SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_0000000000 }}
+        SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.HYDROGEN_DEPLOY_TOKEN }}
