@@ -1,0 +1,25 @@
+name: Deploy to Hydrogen on main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build-and-deploy-frontend:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: bm-news-frontend/
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build and push to hydrogen
+        id: deploy
+        run: npx shopify hydrogen deploy
+        env:
+          SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.HYDROGEN_DEPLOY_TOKEN }}
