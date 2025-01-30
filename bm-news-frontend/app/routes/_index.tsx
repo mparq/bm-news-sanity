@@ -1,6 +1,6 @@
-import { PortableText } from '@portabletext/react';
+import { PortableText, PortableTextBlock } from '@portabletext/react';
 import { useLoaderData } from '@remix-run/react';
-import { json, LoaderFunctionArgs } from '@shopify/remix-oxygen';
+import { LoaderFunctionArgs } from '@shopify/remix-oxygen';
 import { PageLayout } from '~/components/PageLayout';
 import { readTime } from '~/lib/utils';
 import { frontPageQuery } from '~/sanity/queries';
@@ -15,13 +15,16 @@ export async function loader({
    * [groq query docs](https://www.sanity.io/docs/how-queries-work)
    */
   const frontPageLayout = await sanity.loadQuery<FrontPageQueryResult>(frontPageQuery, {});
-  return json({ frontPageLayout });
+  return { frontPageLayout };
 }
 
 export default function IndexPage() {
   const { frontPageLayout } = useLoaderData<typeof loader>();
   const layout = frontPageLayout.data;
   const topStory = layout?.topStory;
+  const sideStoriesPrimary = layout?.sideStoriesPrimary;
+  const sideStoriesSecondary = layout?.sideStoriesSecondary;
+
 
   return (
     <PageLayout>
@@ -45,40 +48,43 @@ export default function IndexPage() {
             </div>
           </a>
           <div className="news-list">
-            <StoryCard
-              slug={'unknown'}
-              category={'Community'}
-              title="Meeting of Friends in Italy"
-              wordCount={1500}
-            />
-            <StoryCard
-              slug={'unknown'}
-              category={'Initiatives'}
-              title="For the first time I shared this story"
-              wordCount={1500}
-            />
-            <StoryCardExtra
-              slug={'unknown'}
-              category={'Paramahamsa Vishwananda'}
-              title="Visited an Orphan Centre"
-              wordCount={1500}
-            />
+            {
+              sideStoriesSecondary?.map((story, i) => {
+                if (i < sideStoriesSecondary.length - 1) {
+                  return (
+                    <StoryCard
+                      slug={story.slugCurrent}
+                      category={story.categoryName}
+                      title={story.title}
+                      wordCount={story.contentWordCount}
+                    />
+                  );
+                } else {
+                  return (
+                    <StoryCardExtra
+                      slug={story.slugCurrent}
+                      category={story.categoryName}
+                      title={story.title}
+                      wordCount={story.contentWordCount}
+                    />
+                  );
+                }
+              })
+            }
+
           </div>
           <div className="news-list">
-            <StoryCardHorizontal
-              slug={'unknown'}
-              category={'Volunteering'}
-              title="Meeting of Friends in Italy"
-              excerpt="In a historic and spiritually enriching moment, Swami Vishwananda..."
-              wordCount={1500}
-            />
-            <StoryCardHorizontal
-              slug={'unknown'}
-              category={'Initiatives'}
-              title="For the first time I shared this story"
-              excerpt="The serene surroundings of the ashram provided the perfect setting..."
-              wordCount={1500}
-            />
+            {
+              sideStoriesPrimary?.map(story => (
+                <StoryCardHorizontal
+                  slug={story.slugCurrent}
+                  category={story.categoryName}
+                  title={story.title}
+                  excerpt={story.excerpt}
+                  wordCount={story.contentWordCount}
+                />
+              ))
+            }
             <a href="/live.html" className="news-card news-card--horizontal live-card">
               <div className="live-button">
                 <div className="circle"></div>
@@ -271,14 +277,14 @@ export default function IndexPage() {
 }
 
 function TopStoryCard(props: {
-  slug: string;
-  title: string;
-  category: string;
-  excerpt: any;
-  wordCount: number;
+  slug: string | null;
+  title: string | null;
+  category: string | null;
+  excerpt: PortableTextBlock[] | null;
+  wordCount: number | null;
 }) {
   const articleLink = `/stories/${props.slug}`;
-  const minsToRead = readTime(props.wordCount);
+  const minsToRead = readTime(props.wordCount || 0);
   return (
     <a href={articleLink} className="card--featured">
       <figure className="news-card card--paramahamsa-vishwananda">
@@ -297,13 +303,13 @@ function TopStoryCard(props: {
 }
 
 function StoryCard(props: {
-  slug: string;
-  category: string;
-  title: string;
-  wordCount: number;
+  slug: string | null;
+  category: string | null;
+  title: string | null;
+  wordCount: number | null;
 }) {
   const articleLink = `/stories/${props.slug}`;
-  const minsToRead = readTime(props.wordCount);
+  const minsToRead = readTime(props.wordCount || 0);
   return (
     <a href={articleLink}>
       <figure className="news-card news-card--horizontal">
@@ -322,13 +328,13 @@ function StoryCard(props: {
 }
 
 function StoryCardExtra(props: {
-  slug: string;
-  category: string;
-  title: string;
-  wordCount: number;
+  slug: string | null;
+  category: string | null;
+  title: string | null;
+  wordCount: number | null;
 }) {
   const articleLink = `/stories/${props.slug}`;
-  const minsToRead = readTime(props.wordCount);
+  const minsToRead = readTime(props.wordCount || 0);
   return (
     <a href={articleLink}>
       <figure id="extraCard" className="news-card card--paramahamsa-vishwananda">
@@ -347,21 +353,21 @@ function StoryCardExtra(props: {
 }
 
 function StoryCardHorizontal(props: {
-  slug: string;
-  category: string;
-  title: string;
-  wordCount: number;
-  excerpt: string;
+  slug: string | null;
+  category: string | null;
+  title: string | null;
+  wordCount: number | null;
+  excerpt: PortableTextBlock[] | null;
 }) {
   const articleLink = `/stories/${props.slug}`;
-  const minsToRead = readTime(props.wordCount);
+  const minsToRead = readTime(props.wordCount || 0);
   return (
     <a href={articleLink}>
       <figure className="news-card news-card--horizontal">
         <figcaption>
           <p className="category">{props.category}</p>
           <h5>{props.title}</h5>
-          <p>{props.excerpt}</p>
+          {props.excerpt && <PortableText value={props.excerpt} />}
           <small>{minsToRead} min read</small>
         </figcaption>
         <div className="news-card--horizontal__image-container">
