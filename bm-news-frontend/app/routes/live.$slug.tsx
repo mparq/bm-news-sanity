@@ -70,7 +70,7 @@ export default function Page() {
                 <LiveCard
                   postDateTime='1d ago / 7:32 AM EST'
                 >
-                  <h2>Post from earlier in the morning</h2>
+                  <h2 className="h4">Post from earlier in the morning</h2>
                   <div>
                     <p>We are getting ready for Darshan today.</p>
                     <p>It's going to be an amazing day.</p>
@@ -79,7 +79,18 @@ export default function Page() {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                   </div>
-                </LiveCard></div>
+                </LiveCard>
+
+                <LiveCard
+                  postDateTime='2d ago / 7:32 AM EST'
+                >
+                  <h2 className="h4">Live blogging starts</h2>
+                  <div>
+                    <p>Jai Gurudev! Get ready for the live blogging event of the new year.</p>
+                    <p>Bookmark this page to get live updates of Guruji's travels in South America.</p>
+                  </div>
+                </LiveCard>
+              </div>
 
             </div>
 
