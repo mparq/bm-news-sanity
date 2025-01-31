@@ -6,7 +6,7 @@
   width: 100%;
 
   &.essential {
-    border-left: 8px solid var(--red-2);
+    border-inline-start: 8px solid var(--red-2);
   }
 
   &.essential .live-card--date-line {
@@ -46,6 +46,7 @@
 }
 .column-container {
   max-width: 70ch;
+  margin-inline: auto;
 }
 .live-content-container {
   max-width: 70ch;
@@ -53,7 +54,7 @@
 }
 
 .live-blog-context {
-  border-inline-end: 1px solid var(--light-grey);
+  border-inline-start: 1px solid var(--light-grey);
   padding-block: var(--gap-medium);
   padding-inline: var(--gap-medium);
   >h2 {
