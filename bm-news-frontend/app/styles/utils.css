@@ -1,0 +1,96 @@
+/**
+ * Some utility classes
+ * Not sure if we like these. can remove, maybe helpful for small targeted changes like size and color
+ */
+.h1 {
+  font-size: var(--h1);
+}
+.h2 {
+  font-size: var(--h2);
+}
+.h3 {
+  font-size: var(--h3);
+}
+.h4 {
+  font-size: var(--h4);
+}
+.h5 {
+  font-size: var(--h5);
+}
+.p {
+  font-size: var(--p);
+}
+.text-small {
+  font-size: var(--text-small);
+}
+
+.primary-blue {
+  color: var(--primary-blue);
+}
+.secondary-blue {
+  color: var(--secondary-blue);
+}
+.light-blue {
+  color: var(--light-blue);
+}
+.pastel-blue {
+  color: var(--pastel-blue);
+}
+.dark-blue {
+  color: var(--dark-blue);
+}
+.primary-gold {
+  color: var(--dark-gold);
+}
+.dark-gold {
+  color: var(--secondary-gold);
+}
+.secondary-gold {
+  color: var(--secondary-gold);
+}
+.violet {
+  color: var(--violet);
+}
+.pastel-pink {
+  color: var(--pastel-pink);
+}
+.pink {
+  color: var(--pink);
+}
+.red-1 {
+  color: var(--red-1);
+}
+.red-2 {
+  color: var(--red-2);
+}
+.red {
+  color: var(--red);
+}
+.orange {
+  color: var(--orange);
+}
+.beige {
+  color: var(--beige);
+}
+.white {
+  color: var(--white);
+}
+.black {
+  color: var(--black);
+}
+.dark-grey {
+  color: var(--dark-grey);
+}
+.grey {
+  color: var(--grey);
+}
+.light-grey {
+  color: var(--light-grey);
+}
+.link {
+  color: var(--link);
+}
+.link-hover {
+  color: var(--link-hover);
+}
+

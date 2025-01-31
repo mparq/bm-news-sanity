@@ -1,14 +1,68 @@
-.card {
-    border: 1px solid var(--grey);
-    padding: var(--gap-medium);
-    width: 70ch;
+.live-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+  margin-inline: var(--gap-small);
+  width: 100%;
+
+  &.essential {
+    border-left: 8px solid var(--red-2);
+  }
+
+  &.essential .live-card--date-line {
+    font-weight: 700;
+  }
+
+
+  &:not(:first-child) {
+    border-block-start: 2px solid var(--primary-gold);
+  }
+
+  > .header {
+    display: flex;
+    > small {
+      font-weight: 500;
+      color: var(--red-2);
+      padding-block: var(--gap-extra-small);
+    }
+  }
+
+  & .live-card--date-line {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-small);
+  }
+}
+
+.collapse {
+  padding-block: 0;
+}
+.two-column {
+  display: grid;
+  grid-template-columns: minmax(auto, 2fr) minmax(40ch, 1fr);
+}
+.tabs {
+  display: none;
+}
+.column-container {
+  max-width: 70ch;
+}
+.live-content-container {
+  max-width: 70ch;
+  padding-inline: var(--gap-medium);
+}
+
+.live-blog-context {
+  border-inline-end: 1px solid var(--light-grey);
+  padding-top: var(--gap-medium);
+  >h2 {
+    text-transform: uppercase;
+  }
 }
 .live-blog-container {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-medium);
   align-items: center;
-  padding-block: var(--gap-medium);
 }
 .top-banner {
   display: flex;
@@ -30,4 +84,55 @@
 iframe.yt-embed {
   aspect-ratio: 16 / 9;
   width: 100%;
+}
+
+
+@media (max-width: 850px) {
+  .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 70ch;
+    margin-inline: auto;
+  }
+  .two-column {
+    display: block;
+  }
+  .column {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+  .button--tab {
+    border: none;
+    background-color: var(--light-grey);
+    font-weight: 500;
+    width: 100%;
+    &.active {
+      border-block-start: 2px solid var(--primary-gold);
+      background-color: var(--white);
+    }
+    &:first-child {
+      box-shadow: 1px 0 0 var(--light-grey);
+    }
+  }
+  .button--tab-live {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .live-circle-red {
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: var(--red-2);
+      position: relative;
+  }
+  .live-span {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-small);
+  }
+
 }

@@ -26,12 +26,8 @@ export default async function handleRequest(
       'https://ka-f.fontawesome.com',
     ],
     scriptSrc: [
+      "'self'",
       "'unsafe-eval'",
-      "'self'",
-      'https://kit.fontawesome.com'
-    ],
-    scriptSrcElem: [
-      "'self'",
       'https://kit.fontawesome.com',
       'https://platform.twitter.com'
     ],
