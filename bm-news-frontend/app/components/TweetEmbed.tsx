@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from "react";
-import { PreviewProps } from "sanity";
+import React, { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
@@ -9,9 +8,8 @@ declare global {
 
 // HACK: loading twitter widgets script via a bit of a hack. I guess it's okay for now.
 // https://developer.x.com/en/docs/x-for-websites/embedded-tweets/guides/embedded-tweet-parameter-reference
-window.twttr = window.twttr || {};
 
-interface TweetEmbedProps extends PreviewProps {
+interface TweetEmbedProps {
   tweetUrl?: string;
 }
 
@@ -23,7 +21,7 @@ interface TweetEmbedProps extends PreviewProps {
  */
 export default function TweetEmbedPreview(props: TweetEmbedProps) {
   const ref = useRef<HTMLDivElement>(null);
-
+  const [loadingTwttr, setLoadingTwttr] = useState(true);
   const title = props.tweetUrl;
   const tweetIdMatch = props.tweetUrl && props.tweetUrl.match(/^https:\/\/x.com\/[^/]+\/status\/(\d+)/)
   const tweetId = tweetIdMatch && tweetIdMatch[1];
@@ -33,6 +31,7 @@ export default function TweetEmbedPreview(props: TweetEmbedProps) {
       loadTwitterJs(() => {
         if (!canceled) {
           console.debug('twttr loaded. calling createTweet')
+          setLoadingTwttr(false);
           window.twttr.widgets.createTweet(
             tweetId,
             ref.current,
@@ -46,16 +45,13 @@ export default function TweetEmbedPreview(props: TweetEmbedProps) {
         canceled = true;
       }
     }
-  }, [tweetId, ref.current])
+  }, [tweetId, ref.current, setLoadingTwttr])
 
 
   return (
 
     <div ref={ref} id="tweet-container">
-      {props.renderDefault({
-        ...props,
-        title: title
-      })}
+      {loadingTwttr && <p>Tweet: <a href={title}>{title}</a></p>}
     </div>
   );
 }

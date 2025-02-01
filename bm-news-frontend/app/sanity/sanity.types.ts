@@ -68,6 +68,47 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type TweetEmbed = {
+  _type: 'tweetEmbed';
+  url?: string;
+};
+
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'blockquote';
+      listItem?: 'bullet';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+      _key: string;
+    }
+  | ({
+      _key: string;
+    } & TweetEmbed)
+>;
+
 export type LiveBlogContent = {
   _id: string;
   _type: 'liveBlogContent';
@@ -89,24 +130,7 @@ export type LiveBlogContent = {
     [internalGroqTypeReferenceTo]?: 'author';
   }>;
   postDateTime?: string;
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }>;
+  content?: BlockContent;
 };
 
 export type LiveBlog = {
@@ -244,46 +268,7 @@ export type NewsStory = {
     crop?: SanityImageCrop;
     _type: 'image';
   };
-  content?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: 'span';
-          _key: string;
-        }>;
-        style?:
-          | 'normal'
-          | 'h1'
-          | 'h2'
-          | 'h3'
-          | 'h4'
-          | 'h5'
-          | 'h6'
-          | 'blockquote';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
-          _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: 'image';
-        _key: string;
-      }
-  >;
+  content?: BlockContent;
 };
 
 export type SanityImageCrop = {
@@ -365,6 +350,8 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | TweetEmbed
+  | BlockContent
   | LiveBlogContent
   | LiveBlog
   | Author
@@ -509,16 +496,8 @@ export type SingleNewsStoryQueryResult = {
           _type: 'span';
           _key: string;
         }>;
-        style?:
-          | 'blockquote'
-          | 'h1'
-          | 'h2'
-          | 'h3'
-          | 'h4'
-          | 'h5'
-          | 'h6'
-          | 'normal';
-        listItem?: 'bullet' | 'number';
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'normal';
+        listItem?: 'bullet';
         markDefs?: Array<{
           href?: string;
           _type: 'link';
@@ -555,6 +534,11 @@ export type SingleNewsStoryQueryResult = {
         crop?: SanityImageCrop;
         _type: 'image';
         _key: string;
+      }
+    | {
+        _key: string;
+        _type: 'tweetEmbed';
+        url?: string;
       }
   > | null;
   featuredImage: {

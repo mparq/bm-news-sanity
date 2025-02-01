@@ -18,6 +18,11 @@ export default async function handleRequest(
       'https://ka-f.fontawesome.com',
       'https://cdn.shopify.com',
     ],
+    imgSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://cdn.sanity.io'
+    ],
     styleSrc: [
       "'self'",
       'https://cdn.shopify.com',
