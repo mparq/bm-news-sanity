@@ -23,15 +23,24 @@ export default function TweetEmbedPreview(props: TweetEmbedProps) {
   const tweetId = tweetIdMatch && tweetIdMatch[1];
   useEffect(() => {
     if (tweetId && ref.current) {
+      let canceled = false;
       loadTwitterJs(() => {
-        window.twttr.widgets.createTweet(
-          tweetId,
-          ref.current,
-          {}
-        )
+        if (!canceled) {
+          console.debug('twttr loaded. calling createTweet')
+          window.twttr.widgets.createTweet(
+            tweetId,
+            ref.current,
+            {}
+          )
+        } else {
+          console.debug('twttr.widgets.createTweet called after render cycle refresh')
+        }
       });
+      return () => {
+        canceled = true;
+      }
     }
-  }, [tweetId, ref])
+  }, [tweetId, ref.current])
 
 
   return (
@@ -45,27 +54,38 @@ export default function TweetEmbedPreview(props: TweetEmbedProps) {
   );
 }
 
+const listeners: Array<() => void> = [];
+let twttrLoaded = false;
 // load the twitter widgets script https://developer.x.com/en/docs/x-for-websites/embedded-tweets/guides/embedded-tweet-parameter-reference
 // NOTE: it would be nicer to just include this script somewhere, but I can't figure out where to add in sanity studio atm
 // calling the oEmbed API would be nice too but because of CORS issues, it must be called from a backend and sanity studio works as a SPA in browser
-function loadTwitterJs(callback?: () => void) {
+function loadTwitterJs(callback: () => void) {
   const existing = document.getElementById('twitter-wjs');
   if (existing) {
-    window.twttr.ready(callback);
+    if (!twttrLoaded) {
+      console.debug('load twttr called before twttrLoaded')
+      listeners.push(callback);
+    } else {
+      console.debug('load twttr called after twttrLoaded')
+      callback();
+    }
+    return;
   }
-  console.log('creating twitter');
+  console.debug('loading twitter script');
   const s = document.createElement('script');
   s.src = 'https://platform.twitter.com/widgets.js';
   s.id = 'twitter-wjs';
-  window.twttr._e = [];
-  window.twttr.ready = function(f: () => void) {
-    window.twttr._e.push(f);
-  }
-  window.twttr.ready(callback);
   document.body.appendChild(s);
+  listeners.push(callback);
   s.onload = () => {
-    console.log('twttr loaded onload');
-    console.log(window.twttr);
+    console.debug('twttr loaded onload');
+    window.twttr.ready(() => {
+      console.debug('twttr.ready. firing listeners');
+      twttrLoaded = true;
+      listeners.forEach((cb) => {
+        cb();
+      });
+    })
   }
 }
 
