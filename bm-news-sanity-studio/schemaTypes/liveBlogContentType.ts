@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
+import { blockContentType } from './customFields/blockContent'
 
 export const liveBlogContentType = defineType({
   name: 'liveBlogContent',
@@ -32,8 +33,7 @@ export const liveBlogContentType = defineType({
     defineField({
       name: 'content',
       title: 'Content',
-      type: 'array',
-      of: [defineArrayMember({ type: 'block' })]
+      type: blockContentType.name,
     }),
   ],
 })

@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
+import { blockContentType } from './customFields/blockContent'
 
 
 export const newsStoryType = defineType({
@@ -57,11 +58,7 @@ export const newsStoryType = defineType({
     }),
     defineField({
       name: 'content',
-      type: 'array',
-      of: [
-        defineArrayMember({ type: 'block' }),
-        defineArrayMember({ type: 'image' })
-      ],
+      type: blockContentType.name,
     }),
   ],
 })

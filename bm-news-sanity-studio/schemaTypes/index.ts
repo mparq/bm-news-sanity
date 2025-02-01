@@ -1,5 +1,7 @@
 import { authorType } from "./authorType";
 import { categoryType } from "./categoryType";
+import { blockContentType } from "./customFields/blockContent";
+import { tweetEmbedType } from "./customFields/tweetEmbed";
 import { frontPageLayoutType } from "./frontPageLayoutType";
 import { liveBlogContentType } from "./liveBlogContentType";
 import { liveBlogType } from "./liveBlogType";
@@ -11,5 +13,7 @@ export const schemaTypes = [
   newsStoryType,
   categoryType,
   liveBlogType,
-  liveBlogContentType
+  liveBlogContentType,
+  blockContentType,
+  tweetEmbedType
 ]
