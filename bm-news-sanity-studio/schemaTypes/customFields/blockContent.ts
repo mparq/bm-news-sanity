@@ -1,5 +1,6 @@
 import { defineArrayMember, defineType } from 'sanity'
 import { tweetEmbedType } from './tweetEmbed'
+import { contentImageType } from './contentImage'
 
 /**
  * Block content type represents the field for PortableText content. Used in
@@ -55,8 +56,8 @@ export const blockContentType = defineType({
     // primitive types such as 'string' and 'number' in the same array
     // as a block type.
     defineArrayMember({
-      type: 'image',
-      options: { hotspot: true },
+      type: contentImageType.name,
+      title: 'Embed Image',
     }),
     defineArrayMember({
       type: tweetEmbedType.name

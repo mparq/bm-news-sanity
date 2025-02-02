@@ -1,11 +1,12 @@
-import { authorType } from "./authorType";
-import { categoryType } from "./categoryType";
+import { authorType } from "./documents/authorType";
+import { categoryType } from "./documents/categoryType";
 import { blockContentType } from "./customFields/blockContent";
 import { tweetEmbedType } from "./customFields/tweetEmbed";
-import { frontPageLayoutType } from "./frontPageLayoutType";
-import { liveBlogContentType } from "./liveBlogContentType";
-import { liveBlogType } from "./liveBlogType";
-import { newsStoryType } from "./newsStoryType";
+import { frontPageLayoutType } from "./documents/frontPageLayoutType";
+import { liveBlogContentType } from "./documents/liveBlogContentType";
+import { liveBlogType } from "./documents/liveBlogType";
+import { newsStoryType } from "./documents/newsStoryType";
+import { contentImageType } from "./customFields/contentImage";
 
 export const schemaTypes = [
   frontPageLayoutType,
@@ -15,5 +16,6 @@ export const schemaTypes = [
   liveBlogType,
   liveBlogContentType,
   blockContentType,
-  tweetEmbedType
+  tweetEmbedType,
+  contentImageType
 ]
