@@ -101,7 +101,9 @@ export type BlockContent = Array<
       };
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
-      _type: 'image';
+      alt?: string;
+      caption?: string;
+      _type: 'contentImage';
       _key: string;
     }
   | ({
@@ -129,6 +131,7 @@ export type LiveBlogContent = {
     _key: string;
     [internalGroqTypeReferenceTo]?: 'author';
   }>;
+  isEssential?: boolean;
   postDateTime?: string;
   content?: BlockContent;
 };
@@ -139,9 +142,8 @@ export type LiveBlog = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
-  slug?: Slug;
   title?: string;
+  slug?: Slug;
   category?: {
     _ref: string;
     _type: 'reference';
@@ -157,10 +159,13 @@ export type LiveBlog = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    caption?: string;
+    attribution?: string;
     _type: 'image';
   };
   startDateTime?: string;
   endDateTime?: string;
+  context?: BlockContent;
 };
 
 export type Author = {
@@ -185,90 +190,6 @@ export type Author = {
   twitter?: string;
   instagram?: string;
   facebook?: string;
-};
-
-export type FrontPageLayout = {
-  _id: string;
-  _type: 'frontPageLayout';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  regions?: Array<string>;
-  topStory?: {
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: 'newsStory';
-  };
-  sideStoriesPrimary?: Array<{
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: 'newsStory';
-  }>;
-  sideStoriesSecondary?: Array<{
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: 'newsStory';
-  }>;
-};
-
-export type NewsStory = {
-  _id: string;
-  _type: 'newsStory';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  authors?: Array<{
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: 'author';
-  }>;
-  slug?: Slug;
-  category?: {
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: 'category';
-  };
-  excerpt?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }>;
-  regionAvailability?: Array<string>;
-  featuredImage?: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  };
-  content?: BlockContent;
 };
 
 export type SanityImageCrop = {
@@ -328,6 +249,108 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
+export type FrontPageLayout = {
+  _id: string;
+  _type: 'frontPageLayout';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  regions?: Array<string>;
+  topStory?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'newsStory';
+  };
+  sideStoriesPrimary?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: 'newsStory';
+  }>;
+  sideStoriesSecondary?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: 'newsStory';
+  }>;
+};
+
+export type NewsStory = {
+  _id: string;
+  _type: 'newsStory';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subtitle?: string;
+  authors?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: 'author';
+  }>;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'category';
+  };
+  excerpt?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  location?: string;
+  regionAvailability?: Array<string>;
+  featuredImage?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
+    _type: 'contentImage';
+  };
+  content?: BlockContent;
+};
+
+export type ContentImage = {
+  _type: 'contentImage';
+  asset?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+  };
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
+  caption?: string;
+};
+
 export type Category = {
   _id: string;
   _type: 'category';
@@ -355,13 +378,14 @@ export type AllSanitySchemaTypes =
   | LiveBlogContent
   | LiveBlog
   | Author
-  | FrontPageLayout
-  | NewsStory
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
+  | FrontPageLayout
+  | NewsStory
+  | ContentImage
   | Category
   | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
@@ -485,7 +509,7 @@ export type FrontPageQueryResult = {
   } | null;
 } | null;
 // Variable: singleNewsStoryQuery
-// Query: *[_type == "newsStory" && slug.current == $slug]{  _updatedAt,  content[]{    ...,    _type == "image" => {      ...,      asset->    }  },  featuredImage{asset->{url}},  title,  category->{name, slug},  slug,  authors[]->{name, profilePhoto{asset->{url}, slug}},  excerpt,  "contentWordCount": count(      string::split(        // pt::text extracts plain text for a portable text block        pt::text(content),        " "      )),}[0]
+// Query: *[_type == "newsStory" && slug.current == $slug]{  _updatedAt,  content[]{    ...,    _type == "contentImage" => {      ...,      asset->    },    _type == "tweetEmbed" => {      url    }  },  featuredImage{asset->},  title,  subtitle,  category->{name, slug},  slug,  authors[]->{name, profilePhoto{asset->}, slug},  excerpt,  "contentWordCount": count(      string::split(        // pt::text extracts plain text for a portable text block        pt::text(content),        " "      )),}[0]
 export type SingleNewsStoryQueryResult = {
   _updatedAt: string;
   content: Array<
@@ -532,21 +556,43 @@ export type SingleNewsStoryQueryResult = {
         } | null;
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
-        _type: 'image';
+        alt?: string;
+        caption?: string;
+        _type: 'contentImage';
         _key: string;
       }
     | {
         _key: string;
         _type: 'tweetEmbed';
-        url?: string;
+        url: string | null;
       }
   > | null;
   featuredImage: {
     asset: {
-      url: string | null;
+      _id: string;
+      _type: 'sanity.imageAsset';
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
     } | null;
   } | null;
   title: string | null;
+  subtitle: string | null;
   category: {
     name: string | null;
     slug: Slug | null;
@@ -556,10 +602,29 @@ export type SingleNewsStoryQueryResult = {
     name: string | null;
     profilePhoto: {
       asset: {
-        url: string | null;
+        _id: string;
+        _type: 'sanity.imageAsset';
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
       } | null;
-      slug: null;
     } | null;
+    slug: Slug | null;
   }> | null;
   excerpt: Array<{
     children?: Array<{
@@ -581,12 +646,96 @@ export type SingleNewsStoryQueryResult = {
   }> | null;
   contentWordCount: number;
 } | null;
+// Variable: liveBlogContentQuery
+// Query: *[_type == "liveBlog" && slug.current == $slug] {  ...,  category->,  "posts": *[_type == "liveBlogContent" && references(^._id) && defined(postDateTime)] {    _id,    headline,    postDateTime,    _updatedAt,    isEssential,    authors[]->{      ...,      profilePhoto{        ...,        asset->      }    },    content  } | order(postDateTime desc)}[0]
+export type LiveBlogContentQueryResult = {
+  _id: string;
+  _type: 'liveBlog';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  category: {
+    _id: string;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+  } | null;
+  featuredImage?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    attribution?: string;
+    _type: 'image';
+  };
+  startDateTime?: string;
+  endDateTime?: string;
+  context?: BlockContent;
+  posts: Array<{
+    _id: string;
+    headline: string | null;
+    postDateTime: string | null;
+    _updatedAt: string;
+    isEssential: boolean | null;
+    authors: Array<{
+      _id: string;
+      _type: 'author';
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      profilePhoto: {
+        asset: {
+          _id: string;
+          _type: 'sanity.imageAsset';
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      } | null;
+      twitter?: string;
+      instagram?: string;
+      facebook?: string;
+    }> | null;
+    content: BlockContent | null;
+  }>;
+} | null;
 
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
     '\n//*[_type == "frontPageLayout"]\n//*[_type == "newsStory"]\n*[_type == "frontPageLayout" && name == "main"]\n{\n    sideStoriesPrimary[]-> {\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      "categoryName": category->.name,\n      excerpt,\n      "slugCurrent": slug.current,\n      featuredImage{asset->{url}},\n      "contentWordCount": count(\n              string::split(\n                // pt::text extracts plain text for a portable text block\n                pt::text(content),\n                " "\n              )),\n    },\n    sideStoriesSecondary[]-> {\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      "categoryName": category->.name,\n      excerpt,\n      "slugCurrent": slug.current,\n      featuredImage{asset->{url}},\n      "contentWordCount": count(\n              string::split(\n                // pt::text extracts plain text for a portable text block\n                pt::text(content),\n                " "\n              )),\n    },\n    topStory->{\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      "categoryName": category->.name,\n      excerpt,\n      "slugCurrent": slug.current,\n      featuredImage{asset->{url}},\n      "contentWordCount": count(\n          string::split(\n            // pt::text extracts plain text for a portable text block\n            pt::text(content),\n            " "\n          )),\n    }\n}[0]\n': FrontPageQueryResult;
-    '\n*[_type == "newsStory" && slug.current == $slug]{\n  _updatedAt,\n  content[]{\n    ...,\n    _type == "image" => {\n      ...,\n      asset->\n    }\n  },\n  featuredImage{asset->{url}},\n  title,\n  category->{name, slug},\n  slug,\n  authors[]->{name, profilePhoto{asset->{url}, slug}},\n  excerpt,\n  "contentWordCount": count(\n      string::split(\n        // pt::text extracts plain text for a portable text block\n        pt::text(content),\n        " "\n      )),\n}[0]\n': SingleNewsStoryQueryResult;
+    '\n*[_type == "newsStory" && slug.current == $slug]{\n  _updatedAt,\n  content[]{\n    ...,\n    _type == "contentImage" => {\n      ...,\n      asset->\n    },\n    _type == "tweetEmbed" => {\n      url\n    }\n  },\n  featuredImage{asset->},\n  title,\n  subtitle,\n  category->{name, slug},\n  slug,\n  authors[]->{name, profilePhoto{asset->}, slug},\n  excerpt,\n  "contentWordCount": count(\n      string::split(\n        // pt::text extracts plain text for a portable text block\n        pt::text(content),\n        " "\n      )),\n}[0]\n': SingleNewsStoryQueryResult;
+    '\n*[_type == "liveBlog" && slug.current == $slug] {\n  ...,\n  category->,\n  "posts": *[_type == "liveBlogContent" && references(^._id) && defined(postDateTime)] {\n    _id,\n    headline,\n    postDateTime,\n    _updatedAt,\n    isEssential,\n    authors[]->{\n      ...,\n      profilePhoto{\n        ...,\n        asset->\n      }\n    },\n    content\n  } | order(postDateTime desc)\n}[0]\n': LiveBlogContentQueryResult;
   }
 }

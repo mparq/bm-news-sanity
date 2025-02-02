@@ -25,6 +25,12 @@ export const liveBlogContentType = defineType({
       of: [defineArrayMember({ type: 'reference', to: [{ type: 'author' }] })],
     }),
     defineField({
+      name: 'isEssential',
+      type: 'boolean',
+      title: 'Essential',
+      description: 'Essential posts render with emphasized markup in UI'
+    }),
+    defineField({
       // TODO: default to current time
       name: 'postDateTime',
       title: 'Post Time',

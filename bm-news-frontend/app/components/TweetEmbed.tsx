@@ -26,17 +26,21 @@ export default function TweetEmbedPreview(props: TweetEmbedProps) {
   const tweetIdMatch = props.tweetUrl && props.tweetUrl.match(/^https:\/\/x.com\/[^/]+\/status\/(\d+)/)
   const tweetId = tweetIdMatch && tweetIdMatch[1];
   useEffect(() => {
+    console.log(`effect: ${tweetId} | ${ref.current}`)
     if (tweetId && ref.current) {
       let canceled = false;
       loadTwitterJs(() => {
-        if (!canceled) {
+        const alreadyLoaded = ref.current!.querySelector(".twitter-tweet") !== null
+        if (!canceled && !alreadyLoaded) {
           console.debug('twttr loaded. calling createTweet')
-          setLoadingTwttr(false);
           window.twttr.widgets.createTweet(
             tweetId,
             ref.current,
             {}
-          )
+          ).then(() => {
+            console.debug('createTweet finished');
+            setLoadingTwttr(false)
+          });
         } else {
           console.debug('twttr.widgets.createTweet called after render cycle refresh')
         }
@@ -45,7 +49,7 @@ export default function TweetEmbedPreview(props: TweetEmbedProps) {
         canceled = true;
       }
     }
-  }, [tweetId, ref.current, setLoadingTwttr])
+  }, [tweetId, ref.current])
 
 
   return (

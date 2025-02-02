@@ -20,6 +20,7 @@ export default async function handleRequest(
     ],
     imgSrc: [
       "'self'",
+      "data:",
       'https://cdn.shopify.com',
       'https://cdn.sanity.io'
     ],

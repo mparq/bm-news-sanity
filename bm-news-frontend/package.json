@@ -20,12 +20,14 @@
     "@remix-run/server-runtime": "^2.13.1",
     "@shopify/hydrogen": "2024.10.1",
     "@shopify/remix-oxygen": "^2.0.9",
+    "date-fns": "^4.1.0",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "hydrogen-sanity": "^4.3.2",
     "isbot": "^3.8.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sanity-image": "^1.0.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.2",

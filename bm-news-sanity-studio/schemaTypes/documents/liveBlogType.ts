@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
+import { blockContentType } from '../customFields/blockContent';
 
 export const liveBlogType = defineType({
   name: 'liveBlog',
@@ -6,20 +7,15 @@ export const liveBlogType = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'name',
-      title: 'Name',
+      name: 'title',
+      title: 'Title e.g. "Guruji in Brazil"',
       type: 'string',
       validation: (rule) => rule.required()
     }),
     defineField({
       name: 'slug',
       type: 'slug',
-      options: { source: 'name' }
-    }),
-    defineField({
-      name: 'title',
-      title: 'Title e.g. "Guruji in Brazil"',
-      type: 'string',
+      options: { source: 'title' },
       validation: (rule) => rule.required()
     }),
     defineField({
@@ -58,6 +54,11 @@ export const liveBlogType = defineType({
       title: 'Live end time',
       type: 'datetime'
     }),
+    defineField({
+      name: 'context',
+      title: 'Context',
+      type: blockContentType.name
+    })
   ]
 });
 

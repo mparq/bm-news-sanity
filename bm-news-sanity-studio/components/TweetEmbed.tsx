@@ -60,7 +60,7 @@ export default function TweetEmbedPreview(props: TweetEmbedProps) {
   );
 }
 
-const listeners: Array<() => void> = [];
+let listeners: Array<() => void> = [];
 let twttrLoaded = false;
 // load the twitter widgets script https://developer.x.com/en/docs/x-for-websites/embedded-tweets/guides/embedded-tweet-parameter-reference
 // NOTE: it would be nicer to just include this script somewhere, but I can't figure out where to add in sanity studio atm
@@ -91,6 +91,7 @@ function loadTwitterJs(callback: () => void) {
       listeners.forEach((cb) => {
         cb();
       });
+      listeners = [];
     })
   }
 }

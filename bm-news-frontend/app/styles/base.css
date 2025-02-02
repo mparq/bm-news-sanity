@@ -3,6 +3,7 @@
 @import url('floating-menu.css');
 @import url('footer.css');
 @import url('homepage.css');
+@import url('article.css');
 @import url('live.css');
 @import url('utils.css');
 
@@ -168,6 +169,18 @@ section {
     &[data-no-gap] {
         --stack-gap: 0;
     }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+.wrapper {
+    max-width: 90ch;
+    margin-inline: auto;
 }
 
 @media (min-width: 768px) {

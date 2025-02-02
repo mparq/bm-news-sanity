@@ -73,16 +73,20 @@ export const singleNewsStoryQuery = groq`
   _updatedAt,
   content[]{
     ...,
-    _type == "image" => {
+    _type == "contentImage" => {
       ...,
       asset->
+    },
+    _type == "tweetEmbed" => {
+      url
     }
   },
-  featuredImage{asset->{url}},
+  featuredImage{asset->},
   title,
+  subtitle,
   category->{name, slug},
   slug,
-  authors[]->{name, profilePhoto{asset->{url}, slug}},
+  authors[]->{name, profilePhoto{asset->}, slug},
   excerpt,
   "contentWordCount": count(
       string::split(
@@ -92,4 +96,26 @@ export const singleNewsStoryQuery = groq`
       )),
 }[0]
 `
+
+export const liveBlogContentQuery = groq`
+*[_type == "liveBlog" && slug.current == $slug] {
+  ...,
+  category->,
+  "posts": *[_type == "liveBlogContent" && references(^._id) && defined(postDateTime)] {
+    _id,
+    headline,
+    postDateTime,
+    _updatedAt,
+    isEssential,
+    authors[]->{
+      ...,
+      profilePhoto{
+        ...,
+        asset->
+      }
+    },
+    content
+  } | order(postDateTime desc)
+}[0]
+`;
 

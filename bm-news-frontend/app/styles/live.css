@@ -1,4 +1,4 @@
-.live-card {
+.live-post-card {
   display: flex;
   flex-direction: column;
   gap: var(--gap-small);
@@ -9,7 +9,7 @@
     border-inline-start: 8px solid var(--red-2);
   }
 
-  &.essential .live-card--date-line {
+  &.essential .live-post-card--date-line {
     font-weight: 700;
   }
 
@@ -27,7 +27,7 @@
     }
   }
 
-  & .live-card--date-line {
+  & .live-post-card--date-line {
     display: flex;
     align-items: center;
     gap: var(--gap-small);
@@ -136,5 +136,8 @@ iframe.yt-embed {
     align-items: center;
     gap: var(--gap-small);
   }
+}
 
+.margin-bottom {
+  margin-block-end: var(--gap-medium);
 }
