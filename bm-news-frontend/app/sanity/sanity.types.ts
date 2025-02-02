@@ -391,7 +391,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../bm-news-frontend/app/sanity/queries.ts
 // Variable: frontPageQuery
-// Query: //*[_type == "frontPageLayout"]//*[_type == "newsStory"]*[_type == "frontPageLayout" && name == "main"]{    sideStoriesPrimary[]-> {      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      "categoryName": category->.name,      excerpt,      "slugCurrent": slug.current,      featuredImage{asset->{url}},      "contentWordCount": count(              string::split(                // pt::text extracts plain text for a portable text block                pt::text(content),                " "              )),    },    sideStoriesSecondary[]-> {      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      "categoryName": category->.name,      excerpt,      "slugCurrent": slug.current,      featuredImage{asset->{url}},      "contentWordCount": count(              string::split(                // pt::text extracts plain text for a portable text block                pt::text(content),                " "              )),    },    topStory->{      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      "categoryName": category->.name,      excerpt,      "slugCurrent": slug.current,      featuredImage{asset->{url}},      "contentWordCount": count(          string::split(            // pt::text extracts plain text for a portable text block            pt::text(content),            " "          )),    }}[0]
+// Query: //*[_type == "frontPageLayout"]//*[_type == "newsStory"]*[_type == "frontPageLayout" && name == "main"]{    sideStoriesPrimary[]-> {      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      "categoryName": category->.name,      excerpt,      "slugCurrent": slug.current,      featuredImage{..., asset->},      "contentWordCount": count(              string::split(                // pt::text extracts plain text for a portable text block                pt::text(content),                " "              )),    },    sideStoriesSecondary[]-> {      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      "categoryName": category->.name,      excerpt,      "slugCurrent": slug.current,      featuredImage{..., asset->},      "contentWordCount": count(              string::split(                // pt::text extracts plain text for a portable text block                pt::text(content),                " "              )),    },    topStory->{      _updatedAt,      authors[]->{name, profilePhoto{asset->{url}}},      title,      "categoryName": category->.name,      excerpt,      "slugCurrent": slug.current,      featuredImage{..., asset->},      "contentWordCount": count(          string::split(            // pt::text extracts plain text for a portable text block            pt::text(content),            " "          )),    }}[0]
 export type FrontPageQueryResult = {
   sideStoriesPrimary: Array<{
     _updatedAt: string;
@@ -426,8 +426,32 @@ export type FrontPageQueryResult = {
     slugCurrent: string | null;
     featuredImage: {
       asset: {
-        url: string | null;
+        _id: string;
+        _type: 'sanity.imageAsset';
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
       } | null;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
+      _type: 'contentImage';
     } | null;
     contentWordCount: number;
   }> | null;
@@ -464,8 +488,32 @@ export type FrontPageQueryResult = {
     slugCurrent: string | null;
     featuredImage: {
       asset: {
-        url: string | null;
+        _id: string;
+        _type: 'sanity.imageAsset';
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
       } | null;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
+      _type: 'contentImage';
     } | null;
     contentWordCount: number;
   }> | null;
@@ -502,14 +550,38 @@ export type FrontPageQueryResult = {
     slugCurrent: string | null;
     featuredImage: {
       asset: {
-        url: string | null;
+        _id: string;
+        _type: 'sanity.imageAsset';
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
       } | null;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
+      _type: 'contentImage';
     } | null;
     contentWordCount: number;
   } | null;
 } | null;
 // Variable: singleNewsStoryQuery
-// Query: *[_type == "newsStory" && slug.current == $slug]{  _updatedAt,  content[]{    ...,    _type == "contentImage" => {      ...,      asset->    },    _type == "tweetEmbed" => {      url    }  },  featuredImage{asset->},  title,  subtitle,  category->{name, slug},  slug,  authors[]->{name, profilePhoto{asset->}, slug},  excerpt,  "contentWordCount": count(      string::split(        // pt::text extracts plain text for a portable text block        pt::text(content),        " "      )),}[0]
+// Query: *[_type == "newsStory" && slug.current == $slug]{  _updatedAt,  content[]{    ...,    _type == "contentImage" => {      ...,      asset->    },    _type == "tweetEmbed" => {      url    }  },  featuredImage{..., asset->},  title,  subtitle,  category->{name, slug},  slug,  authors[]->{name, profilePhoto{asset->}, slug},  excerpt,  "contentWordCount": count(      string::split(        // pt::text extracts plain text for a portable text block        pt::text(content),        " "      )),}[0]
 export type SingleNewsStoryQueryResult = {
   _updatedAt: string;
   content: Array<
@@ -590,6 +662,11 @@ export type SingleNewsStoryQueryResult = {
       metadata?: SanityImageMetadata;
       source?: SanityAssetSourceData;
     } | null;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
+    _type: 'contentImage';
   } | null;
   title: string | null;
   subtitle: string | null;
@@ -734,8 +811,8 @@ export type LiveBlogContentQueryResult = {
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    '\n//*[_type == "frontPageLayout"]\n//*[_type == "newsStory"]\n*[_type == "frontPageLayout" && name == "main"]\n{\n    sideStoriesPrimary[]-> {\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      "categoryName": category->.name,\n      excerpt,\n      "slugCurrent": slug.current,\n      featuredImage{asset->{url}},\n      "contentWordCount": count(\n              string::split(\n                // pt::text extracts plain text for a portable text block\n                pt::text(content),\n                " "\n              )),\n    },\n    sideStoriesSecondary[]-> {\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      "categoryName": category->.name,\n      excerpt,\n      "slugCurrent": slug.current,\n      featuredImage{asset->{url}},\n      "contentWordCount": count(\n              string::split(\n                // pt::text extracts plain text for a portable text block\n                pt::text(content),\n                " "\n              )),\n    },\n    topStory->{\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      "categoryName": category->.name,\n      excerpt,\n      "slugCurrent": slug.current,\n      featuredImage{asset->{url}},\n      "contentWordCount": count(\n          string::split(\n            // pt::text extracts plain text for a portable text block\n            pt::text(content),\n            " "\n          )),\n    }\n}[0]\n': FrontPageQueryResult;
-    '\n*[_type == "newsStory" && slug.current == $slug]{\n  _updatedAt,\n  content[]{\n    ...,\n    _type == "contentImage" => {\n      ...,\n      asset->\n    },\n    _type == "tweetEmbed" => {\n      url\n    }\n  },\n  featuredImage{asset->},\n  title,\n  subtitle,\n  category->{name, slug},\n  slug,\n  authors[]->{name, profilePhoto{asset->}, slug},\n  excerpt,\n  "contentWordCount": count(\n      string::split(\n        // pt::text extracts plain text for a portable text block\n        pt::text(content),\n        " "\n      )),\n}[0]\n': SingleNewsStoryQueryResult;
+    '\n//*[_type == "frontPageLayout"]\n//*[_type == "newsStory"]\n*[_type == "frontPageLayout" && name == "main"]\n{\n    sideStoriesPrimary[]-> {\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      "categoryName": category->.name,\n      excerpt,\n      "slugCurrent": slug.current,\n      featuredImage{..., asset->},\n      "contentWordCount": count(\n              string::split(\n                // pt::text extracts plain text for a portable text block\n                pt::text(content),\n                " "\n              )),\n    },\n    sideStoriesSecondary[]-> {\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      "categoryName": category->.name,\n      excerpt,\n      "slugCurrent": slug.current,\n      featuredImage{..., asset->},\n      "contentWordCount": count(\n              string::split(\n                // pt::text extracts plain text for a portable text block\n                pt::text(content),\n                " "\n              )),\n    },\n    topStory->{\n      _updatedAt,\n      authors[]->{name, profilePhoto{asset->{url}}},\n      title,\n      "categoryName": category->.name,\n      excerpt,\n      "slugCurrent": slug.current,\n      featuredImage{..., asset->},\n      "contentWordCount": count(\n          string::split(\n            // pt::text extracts plain text for a portable text block\n            pt::text(content),\n            " "\n          )),\n    }\n}[0]\n': FrontPageQueryResult;
+    '\n*[_type == "newsStory" && slug.current == $slug]{\n  _updatedAt,\n  content[]{\n    ...,\n    _type == "contentImage" => {\n      ...,\n      asset->\n    },\n    _type == "tweetEmbed" => {\n      url\n    }\n  },\n  featuredImage{..., asset->},\n  title,\n  subtitle,\n  category->{name, slug},\n  slug,\n  authors[]->{name, profilePhoto{asset->}, slug},\n  excerpt,\n  "contentWordCount": count(\n      string::split(\n        // pt::text extracts plain text for a portable text block\n        pt::text(content),\n        " "\n      )),\n}[0]\n': SingleNewsStoryQueryResult;
     '\n*[_type == "liveBlog" && slug.current == $slug] {\n  ...,\n  category->,\n  "posts": *[_type == "liveBlogContent" && references(^._id) && defined(postDateTime)] {\n    _id,\n    headline,\n    postDateTime,\n    _updatedAt,\n    isEssential,\n    authors[]->{\n      ...,\n      profilePhoto{\n        ...,\n        asset->\n      }\n    },\n    content\n  } | order(postDateTime desc)\n}[0]\n': LiveBlogContentQueryResult;
   }
 }

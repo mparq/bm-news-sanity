@@ -27,7 +27,7 @@ export const frontPageQuery = groq`
       "categoryName": category->.name,
       excerpt,
       "slugCurrent": slug.current,
-      featuredImage{asset->{url}},
+      featuredImage{..., asset->},
       "contentWordCount": count(
               string::split(
                 // pt::text extracts plain text for a portable text block
@@ -42,7 +42,7 @@ export const frontPageQuery = groq`
       "categoryName": category->.name,
       excerpt,
       "slugCurrent": slug.current,
-      featuredImage{asset->{url}},
+      featuredImage{..., asset->},
       "contentWordCount": count(
               string::split(
                 // pt::text extracts plain text for a portable text block
@@ -57,7 +57,7 @@ export const frontPageQuery = groq`
       "categoryName": category->.name,
       excerpt,
       "slugCurrent": slug.current,
-      featuredImage{asset->{url}},
+      featuredImage{..., asset->},
       "contentWordCount": count(
           string::split(
             // pt::text extracts plain text for a portable text block
@@ -81,7 +81,7 @@ export const singleNewsStoryQuery = groq`
       url
     }
   },
-  featuredImage{asset->},
+  featuredImage{..., asset->},
   title,
   subtitle,
   category->{name, slug},

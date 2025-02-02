@@ -3,13 +3,14 @@ import { useLoaderData } from '@remix-run/react';
 import { CacheShort } from '@shopify/hydrogen';
 import { LoaderFunctionArgs } from '@shopify/remix-oxygen';
 import { PageLayout } from '~/components/PageLayout';
+import SanityImageWrapper from '~/components/SanityImageWrapper';
 import { readTime } from '~/lib/utils';
 import { frontPageQuery } from '~/sanity/queries';
 import { FrontPageQueryResult } from '~/sanity/sanity.types';
 
 export async function loader({
   _params,
-  context: { sanity, sanityImageBuilder },
+  context: { sanity, env },
 }: LoaderFunctionArgs) {
   /**
    * NOTE: run query in [Sanity Studio > Vision](http://localhost:3333/vision) then paste here
@@ -20,11 +21,12 @@ export async function loader({
       cache: CacheShort()
     }
   });
-  return { frontPageLayout };
+
+  return { frontPageLayout, sanityProjectId: env.SANITY_PROJECT_ID, sanityDataset: env.SANITY_DATASET };
 }
 
 export default function IndexPage() {
-  const { frontPageLayout } = useLoaderData<typeof loader>();
+  const { frontPageLayout, sanityDataset, sanityProjectId } = useLoaderData<typeof loader>();
   const layout = frontPageLayout.data;
   const topStory = layout?.topStory;
   const sideStoriesPrimary = layout?.sideStoriesPrimary;
@@ -41,6 +43,9 @@ export default function IndexPage() {
             excerpt={topStory.excerpt}
             wordCount={topStory.contentWordCount}
             category={topStory.categoryName!}
+            image={topStory.featuredImage}
+            sanityProjectId={sanityProjectId}
+            sanityDataset={sanityDataset}
           />}
           <a href="/live/now-in-brazil" className="news-card news-card--horizontal live-card-mobile">
             <div className="live-button">
@@ -62,6 +67,9 @@ export default function IndexPage() {
                       category={story.categoryName}
                       title={story.title}
                       wordCount={story.contentWordCount}
+                      image={story.featuredImage}
+                      sanityProjectId={sanityProjectId}
+                      sanityDataset={sanityDataset}
                     />
                   );
                 } else {
@@ -71,6 +79,9 @@ export default function IndexPage() {
                       category={story.categoryName}
                       title={story.title}
                       wordCount={story.contentWordCount}
+                      image={story.featuredImage}
+                      sanityProjectId={sanityProjectId}
+                      sanityDataset={sanityDataset}
                     />
                   );
                 }
@@ -87,6 +98,9 @@ export default function IndexPage() {
                   title={story.title}
                   excerpt={story.excerpt}
                   wordCount={story.contentWordCount}
+                  image={story.featuredImage}
+                  sanityProjectId={sanityProjectId}
+                  sanityDataset={sanityDataset}
                 />
               ))
             }
@@ -287,6 +301,9 @@ function TopStoryCard(props: {
   category: string | null;
   excerpt: PortableTextBlock[] | null;
   wordCount: number | null;
+  image: any;
+  sanityDataset: string;
+  sanityProjectId: string;
 }) {
   const articleLink = `/stories/${props.slug}`;
   const minsToRead = readTime(props.wordCount || 0);
@@ -294,7 +311,7 @@ function TopStoryCard(props: {
     <a href={articleLink} className="card--featured">
       <figure className="news-card card--paramahamsa-vishwananda">
         <div>
-          <img src="/assets/news-01.jpg" alt="News Image" />
+          <SanityImageWrapper loading="eager" image={props.image} sanityProjectId={props.sanityProjectId} sanityDataset={props.sanityDataset} />
         </div>
         <figcaption>
           <p className="category">{props.category}</p>
@@ -312,6 +329,9 @@ function StoryCard(props: {
   category: string | null;
   title: string | null;
   wordCount: number | null;
+  image: any;
+  sanityDataset: string;
+  sanityProjectId: string;
 }) {
   const articleLink = `/stories/${props.slug}`;
   const minsToRead = readTime(props.wordCount || 0);
@@ -324,8 +344,7 @@ function StoryCard(props: {
           <small>{minsToRead} min read</small>
         </figcaption>
         <div className="news-card--horizontal__image-container">
-          <img className="object-fit-cover" src="/assets/news-02.jpg"
-            alt={props.title || ""} />
+          <SanityImageWrapper image={props.image} sanityProjectId={props.sanityProjectId} sanityDataset={props.sanityDataset} />
         </div>
       </figure>
     </a>
@@ -337,6 +356,9 @@ function StoryCardExtra(props: {
   category: string | null;
   title: string | null;
   wordCount: number | null;
+  image: any;
+  sanityDataset: string;
+  sanityProjectId: string;
 }) {
   const articleLink = `/stories/${props.slug}`;
   const minsToRead = readTime(props.wordCount || 0);
@@ -344,7 +366,7 @@ function StoryCardExtra(props: {
     <a href={articleLink}>
       <figure id="extraCard" className="news-card card--paramahamsa-vishwananda">
         <div className="news-card__image-container">
-          <img className="object-fit-cover" src="/assets/news-01.jpg" alt="News Image" />
+          <SanityImageWrapper image={props.image} sanityProjectId={props.sanityProjectId} sanityDataset={props.sanityDataset} />
         </div>
         <figcaption>
           <p className="category">{props.category}</p>
@@ -363,6 +385,9 @@ function StoryCardHorizontal(props: {
   title: string | null;
   wordCount: number | null;
   excerpt: PortableTextBlock[] | null;
+  image: any;
+  sanityDataset: string;
+  sanityProjectId: string;
 }) {
   const articleLink = `/stories/${props.slug}`;
   const minsToRead = readTime(props.wordCount || 0);
@@ -376,8 +401,7 @@ function StoryCardHorizontal(props: {
           <small>{minsToRead} min read</small>
         </figcaption>
         <div className="news-card--horizontal__image-container">
-          <img className="object-fit-cover" src="/assets/news-02.jpg"
-            alt="Meeting of friends in Italy" />
+          <SanityImageWrapper image={props.image} sanityProjectId={props.sanityProjectId} sanityDataset={props.sanityDataset} />
         </div>
       </figure>
     </a>
