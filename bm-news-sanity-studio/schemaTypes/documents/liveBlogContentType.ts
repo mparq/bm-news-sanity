@@ -1,5 +1,5 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
-import { blockContentType } from './customFields/blockContent'
+import { blockContentType } from '../customFields/blockContent'
 
 export const liveBlogContentType = defineType({
   name: 'liveBlogContent',
