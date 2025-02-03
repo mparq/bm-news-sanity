@@ -66,6 +66,7 @@
 .header__logo {
     display: flex;
     justify-content: center;
+    flex-basis: 187px;
 }
 
 .header__actions {
@@ -313,7 +314,8 @@
     }
 
     #latest-news.container {
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 3fr 5fr 4fr;
     }
 
     .card--featured {
@@ -325,12 +327,8 @@
         order: 2;
     }
 
-    #secondary-news .container {
-        flex-direction: row;
-    }
-
     .news-grid {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
     }
     
     .articles-list {
@@ -367,3 +365,4 @@
         display: none;
     }
 }
+

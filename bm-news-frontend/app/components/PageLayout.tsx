@@ -22,7 +22,14 @@ function Header() {
     <header className="header container">
       <div className="header__top">
         <a className="header__logo" href="/">
-          <img className="custom-logo" src="/assets/bhakti-marga-news-logo.png" alt="Bhakti Marga News Logo" />
+          <img
+            className="custom-logo"
+            srcSet="/assets/bhakti-marga-news-logo-200w.png 1x, /assets/bhakti-marga-news-logo-400w.png 1.5x, /assets/bhakti-marga-news-logo-600w.png 2x"
+            src="/assets/bhakti-marga-news-logo-600w.png"
+            alt="Bhakti Marga News Logo"
+            width="187"
+            style={{ aspectRatio: '187 / 72' }}
+          />
         </a>
 
         <a className="live-button live-now" href="/">

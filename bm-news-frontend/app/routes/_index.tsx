@@ -46,6 +46,7 @@ export default function IndexPage() {
             image={topStory.featuredImage}
             sanityProjectId={sanityProjectId}
             sanityDataset={sanityDataset}
+            preview={null}
           />}
           <a href="/live/now-in-brazil" className="news-card news-card--horizontal live-card-mobile">
             <div className="live-button">
@@ -63,6 +64,7 @@ export default function IndexPage() {
                 if (i < sideStoriesSecondary.length - 1) {
                   return (
                     <StoryCard
+                      key={story._id}
                       slug={story.slugCurrent}
                       category={story.categoryName}
                       title={story.title}
@@ -70,11 +72,13 @@ export default function IndexPage() {
                       image={story.featuredImage}
                       sanityProjectId={sanityProjectId}
                       sanityDataset={sanityDataset}
+                      loading={"eager"}
                     />
                   );
                 } else {
                   return (
                     <StoryCardExtra
+                      key={story._id}
                       slug={story.slugCurrent}
                       category={story.categoryName}
                       title={story.title}
@@ -82,6 +86,7 @@ export default function IndexPage() {
                       image={story.featuredImage}
                       sanityProjectId={sanityProjectId}
                       sanityDataset={sanityDataset}
+                      loading={"eager"}
                     />
                   );
                 }
@@ -93,6 +98,7 @@ export default function IndexPage() {
             {
               sideStoriesPrimary?.map(story => (
                 <StoryCardHorizontal
+                  key={story._id}
                   slug={story.slugCurrent}
                   category={story.categoryName}
                   title={story.title}
@@ -101,6 +107,7 @@ export default function IndexPage() {
                   image={story.featuredImage}
                   sanityProjectId={sanityProjectId}
                   sanityDataset={sanityDataset}
+                  loading={"eager"}
                 />
               ))
             }
@@ -134,7 +141,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img loading="lazy" src="/assets/news-02.jpg" alt="Meeting of friends in Italy" />
+                    <img width="300" loading="lazy" src="/assets/news-02.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -145,7 +152,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img loading="lazy" src="/assets/news-03.jpg" alt="Meeting of friends in Italy" />
+                    <img width="300" loading="lazy" src="/assets/news-03.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -156,7 +163,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img loading="lazy" src="/assets/news-04.jpg" alt="Meeting of friends in Italy" />
+                    <img width="300" loading="lazy" src="/assets/news-04.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -167,7 +174,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img loading="lazy" src="/assets/news-02.jpg" alt="Meeting of friends in Italy" />
+                    <img width="300" loading="lazy" src="/assets/news-02.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -178,7 +185,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img loading="lazy" src="/assets/news-03.jpg" alt="Meeting of friends in Italy" />
+                    <img width="300" loading="lazy" src="/assets/news-03.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -189,7 +196,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img loading="lazy" src="/assets/news-04.jpg" alt="Meeting of friends in Italy" />
+                    <img width="300" loading="lazy" src="/assets/news-04.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -311,7 +318,14 @@ function TopStoryCard(props: {
     <a href={articleLink} className="card--featured">
       <figure className="news-card card--paramahamsa-vishwananda">
         <div>
-          <SanityImageWrapper loading="eager" image={props.image} sanityProjectId={props.sanityProjectId} sanityDataset={props.sanityDataset} sizes="600px" />
+          <SanityImageWrapper
+            loading="eager"
+            image={props.image}
+            sanityProjectId={props.sanityProjectId}
+            sanityDataset={props.sanityDataset}
+            sizes="600px"
+            width="600"
+            preview={null} />
         </div>
         <figcaption>
           <p className="category">{props.category}</p>
@@ -332,6 +346,7 @@ function StoryCard(props: {
   image: any;
   sanityDataset: string;
   sanityProjectId: string;
+  loading: "lazy" | "eager" | null;
 }) {
   const articleLink = `/stories/${props.slug}`;
   const minsToRead = readTime(props.wordCount || 0);
@@ -344,7 +359,13 @@ function StoryCard(props: {
           <small>{minsToRead} min read</small>
         </figcaption>
         <div className="news-card--horizontal__image-container">
-          <SanityImageWrapper image={props.image} sanityProjectId={props.sanityProjectId} sanityDataset={props.sanityDataset} />
+          <SanityImageWrapper
+            image={props.image}
+            sanityProjectId={props.sanityProjectId}
+            sanityDataset={props.sanityDataset}
+            sizes="(min-width: 680px) 320w, 100vw"
+            loading={props.loading}
+          />
         </div>
       </figure>
     </a>
@@ -359,6 +380,7 @@ function StoryCardExtra(props: {
   image: any;
   sanityDataset: string;
   sanityProjectId: string;
+  loading: "lazy" | "eager" | null;
 }) {
   const articleLink = `/stories/${props.slug}`;
   const minsToRead = readTime(props.wordCount || 0);
@@ -366,7 +388,12 @@ function StoryCardExtra(props: {
     <a href={articleLink}>
       <figure id="extraCard" className="news-card card--paramahamsa-vishwananda">
         <div className="news-card__image-container">
-          <SanityImageWrapper image={props.image} sanityProjectId={props.sanityProjectId} sanityDataset={props.sanityDataset} />
+          <SanityImageWrapper
+            image={props.image}
+            sanityProjectId={props.sanityProjectId}
+            sanityDataset={props.sanityDataset}
+            loading={props.loading}
+          />
         </div>
         <figcaption>
           <p className="category">{props.category}</p>

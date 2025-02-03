@@ -16,11 +16,10 @@ import { groq } from "hydrogen-sanity/groq"
 
 
 export const frontPageQuery = groq`
-//*[_type == "frontPageLayout"]
-//*[_type == "newsStory"]
 *[_type == "frontPageLayout" && name == "main"]
 {
     sideStoriesPrimary[]-> {
+      _id,
       _updatedAt,
       authors[]->{name, profilePhoto{asset->{url}}},
       title,
@@ -36,6 +35,7 @@ export const frontPageQuery = groq`
               )),
     },
     sideStoriesSecondary[]-> {
+      _id,
       _updatedAt,
       authors[]->{name, profilePhoto{asset->{url}}},
       title,
@@ -51,6 +51,7 @@ export const frontPageQuery = groq`
               )),
     },
     topStory->{
+      _id,
       _updatedAt,
       authors[]->{name, profilePhoto{asset->{url}}},
       title,
