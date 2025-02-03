@@ -134,7 +134,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img src="/assets/news-02.jpg" alt="Meeting of friends in Italy" />
+                    <img loading="lazy" src="/assets/news-02.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -145,7 +145,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img src="/assets/news-03.jpg" alt="Meeting of friends in Italy" />
+                    <img loading="lazy" src="/assets/news-03.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -156,7 +156,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img src="/assets/news-04.jpg" alt="Meeting of friends in Italy" />
+                    <img loading="lazy" src="/assets/news-04.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -167,7 +167,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img src="/assets/news-02.jpg" alt="Meeting of friends in Italy" />
+                    <img loading="lazy" src="/assets/news-02.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -178,7 +178,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img src="/assets/news-03.jpg" alt="Meeting of friends in Italy" />
+                    <img loading="lazy" src="/assets/news-03.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -189,7 +189,7 @@ export default function IndexPage() {
               <a href="/article.html">
                 <figure className="news-card">
                   <div className="news-card__image">
-                    <img src="/assets/news-04.jpg" alt="Meeting of friends in Italy" />
+                    <img loading="lazy" src="/assets/news-04.jpg" alt="Meeting of friends in Italy" />
                   </div>
                   <figcaption>
                     <h4>Meeting of Friends in Italy</h4>
@@ -238,7 +238,7 @@ export default function IndexPage() {
           </div>
 
           <figure className="news-card">
-            <img src="/assets/news-04.jpg" alt="News Image" />
+            <img loading="lazy" src="/assets/news-04.jpg" alt="News Image" />
             <figcaption>
               <h4>Paramahamsa Vishwananda met the founder of the xyz tradition in Italy</h4>
               <p>In a historic and spiritually enriching moment, Swami Vishwananda met with a famous Shaivite
@@ -280,7 +280,7 @@ export default function IndexPage() {
           </div>
 
           <figure className="news-card">
-            <img src="/assets/news-04.jpg" alt="News Image" />
+            <img loading="lazy" src="/assets/news-04.jpg" alt="News Image" />
             <figcaption>
               <h4>Paramahamsa Vishwananda met the founder of the xyz tradition in Italy</h4>
               <p>In a historic and spiritually enriching moment, Swami Vishwananda met with a famous Shaivite
@@ -311,7 +311,7 @@ function TopStoryCard(props: {
     <a href={articleLink} className="card--featured">
       <figure className="news-card card--paramahamsa-vishwananda">
         <div>
-          <SanityImageWrapper loading="eager" image={props.image} sanityProjectId={props.sanityProjectId} sanityDataset={props.sanityDataset} />
+          <SanityImageWrapper loading="eager" image={props.image} sanityProjectId={props.sanityProjectId} sanityDataset={props.sanityDataset} sizes="600px" />
         </div>
         <figcaption>
           <p className="category">{props.category}</p>
